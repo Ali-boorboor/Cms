@@ -2,7 +2,7 @@ import { memo, useEffect } from "react";
 
 const Error404Page = memo(() => {
   useEffect(() => {
-    document.title = "Error - 404";
+    document.title = "NOT - FOUND";
   }, []);
 
   return <div>Error404Page</div>;

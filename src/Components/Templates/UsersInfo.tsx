@@ -1,9 +1,14 @@
 import UserInfoTable from "../../Components/Organisms/UsersInfoPageComponents/UserInfoTable";
 import AddUserForm from "../Organisms/UsersInfoPageComponents/AddUserForm";
 import Alert from "../../Components/Atoms/Alert";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { AllUsers, UserInfoSearchInput, UserInfoSortFilter } from "../../Contexts/RecoilAtoms";
+import {
+  AllUsers,
+  UserInfoSearchInput,
+  UserInfoSortFilter,
+  usersCount,
+} from "../../Contexts/RecoilAtoms";
 import { useNavigate } from "react-router";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { FaSortAmountDown } from "react-icons/fa";
@@ -11,10 +16,22 @@ import { FaSortAmountUpAlt } from "react-icons/fa";
 import { FcSearch } from "react-icons/fc";
 
 const UsersInfo = memo(() => {
+  const [allUsersCount, setAllUsersCount] = useRecoilState(usersCount);
   const [searchInput, setSearchInput] = useRecoilState(UserInfoSearchInput);
   const [userInfoSortFilter, setUserInfoSortFilter] = useRecoilState(UserInfoSortFilter);
   const [allUsers] = useRecoilState(AllUsers);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAllUsersCount((prevCount) => prevCount + 1);
+    }, 60);
+
+    if (allUsersCount === allUsers.length) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [allUsersCount, allUsers]);
 
   const searchUserHandler = () => {
     if (searchInput.length) {
@@ -34,7 +51,7 @@ const UsersInfo = memo(() => {
         <section className="flex flex-col">
           <div className="flex gap-4 items-center justify-between rounded-tl-lg rounded-tr-lg bg-zinc-400 dark:bg-lightBlack px-8 p-2 border-b border-white dark:border-black">
             <h2 className="hidden md:flex justify-center items-center basis-3/5 gap-2 text-xl font-bold p-2 rounded-lg text-lightBlack dark:text-black bg-lightRed bg-opacity-60 dark:bg-opacity-100">
-              All Users
+              {`All Users (${allUsersCount})`}
               <PiUsersThreeFill className="w-6 h-6" />
             </h2>
             <div className="flex justify-end items-center gap-6 basis-2/5">

@@ -113,6 +113,26 @@ const AllCourses: RecoilState<CoursesData[]> = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+const usersCount: RecoilState<number> = atom({
+  key: "usersCount",
+  default: 0,
+});
+
+const isResetModal: RecoilState<boolean> = atom({
+  key: "isResetModal",
+  default: false,
+});
+
+const isSuccessModal: RecoilState<boolean> = atom({
+  key: "isSuccessModal",
+  default: false,
+});
+
+const isErrorModal: RecoilState<boolean> = atom({
+  key: "isErrorModal",
+  default: false,
+});
+
 const UserInfoSortFilter: RecoilState<boolean> = atom({
   key: "UserInfoSortFilter",
   default: false,
@@ -179,6 +199,10 @@ export {
   AllTickets,
   AllBannedUsers,
   AllCourses,
+  usersCount,
+  isResetModal,
+  isSuccessModal,
+  isErrorModal,
   UserInfoSortFilter,
   UserInfoSearchInput,
   OneUserInfo,

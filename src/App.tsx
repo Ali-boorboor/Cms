@@ -1,10 +1,10 @@
 import Router from "./Routes/Routes";
+import MainHeader from "./Components/Organisms/MainHeader";
+import MainSideBar from "./Components/Organisms/MainSideBar";
 import { memo, useEffect } from "react";
 import { useRoutes } from "react-router";
 import { useRecoilValue } from "recoil";
 import { DarkMode } from "./Contexts/RecoilAtoms";
-import MainHeader from "./Components/Organisms/MainHeader";
-import MainSideBar from "./Components/Organisms/MainSideBar";
 
 const App = memo(() => {
   const Routes = useRoutes(Router);
