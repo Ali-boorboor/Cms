@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { MdSpaceDashboard } from "react-icons/md";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { GiNotebook } from "react-icons/gi";
+import { FaUserLargeSlash } from "react-icons/fa6";
 import { FaComments } from "react-icons/fa";
 import { IoTicket } from "react-icons/io5";
 import { MainSideBarType } from "../../Types/OrganismsType/OrganismsType";
@@ -36,6 +37,13 @@ const MainSideBar: MainSideBarType = memo(() => {
       >
         <GiNotebook className="w-5 h-5" />
         {window.innerWidth > 600 && "Courses"}
+      </NavLink>
+      <NavLink
+        to="/banned-users"
+        className={(link) => (link.isActive ? ActiveLinksStyle : UnActiveLinksStyle)}
+      >
+        <FaUserLargeSlash className="w-5 h-5" />
+        {window.innerWidth > 600 && "Banned Users"}
       </NavLink>
       <NavLink
         to="/comments"

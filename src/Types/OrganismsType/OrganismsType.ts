@@ -6,6 +6,9 @@ type CommentTableType = React.MemoExoticComponent<() => JSX.Element>;
 type UsersPageTableType = React.MemoExoticComponent<
   ({ children, th1, th2, th3, th4, th5, th6, th7 }: any) => JSX.Element
 >;
+type CoursesPageTableType = React.MemoExoticComponent<
+  ({ children, th1, th2, th3, th4, th5, th6, th7, th8, th9, th10 }: any) => JSX.Element
+>;
 
 export type {
   MainHeaderType,
@@ -14,4 +17,5 @@ export type {
   UserTableType,
   CommentTableType,
   UsersPageTableType,
+  CoursesPageTableType,
 };

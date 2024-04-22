@@ -17,7 +17,7 @@ import {
   AllCourses,
 } from "../Contexts/RecoilAtoms";
 
-const LandingPage = memo(() => {
+const DashboardPage = memo(() => {
   const [allUsers, setAllUsers] = useRecoilState(AllUsers);
   const [allComments, setAllComments] = useRecoilState(AllComments);
   const [allTickets, setAllTickets] = useRecoilState(AllTickets);
@@ -60,4 +60,4 @@ const LandingPage = memo(() => {
   return <Landing />;
 });
 
-export default LandingPage;
+export default DashboardPage;

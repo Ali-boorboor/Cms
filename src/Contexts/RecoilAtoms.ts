@@ -189,6 +189,71 @@ const AddUserEmailInputValidator: RecoilState<boolean> = atom({
   default: false,
 });
 
+const AddCourseNameInput: RecoilState<string> = atom({
+  key: "AddCourseNameInput",
+  default: "",
+});
+
+const AddCourseNameInputValidator: RecoilState<boolean> = atom({
+  key: "AddCourseNameInputValidator",
+  default: false,
+});
+
+const AddCourseCoverUploader: RecoilState<string> = atom({
+  key: "AddCourseCoverUploader",
+  default: "",
+});
+
+const AddCourseCoverUploaderValidator: RecoilState<boolean> = atom({
+  key: "AddCourseCoverUploaderValidator",
+  default: false,
+});
+
+const AddCourseTeacherInput: RecoilState<string> = atom({
+  key: "AddCourseTeacherInput",
+  default: "",
+});
+
+const AddCourseTeacherInputValidator: RecoilState<boolean> = atom({
+  key: "AddCourseTeacherInputValidator",
+  default: false,
+});
+
+const AddCoursePriceInput: RecoilState<number> = atom({
+  key: "AddCoursePriceInput",
+  default: 0,
+});
+
+const AddCoursePriceInputValidator: RecoilState<boolean> = atom({
+  key: "AddCoursePriceInputValidator",
+  default: false,
+});
+
+const AddCourseDurationInput: RecoilState<number> = atom({
+  key: "AddCourseDurationInput",
+  default: 0,
+});
+
+const AddCourseDurationInputValidator: RecoilState<boolean> = atom({
+  key: "AddCourseDurationInputValidator",
+  default: false,
+});
+
+const coursesCount = atom({
+  key: "coursesCount",
+  default: 0,
+});
+
+const courseSearchInput = atom({
+  key: "courseSearchInput",
+  default: "",
+});
+
+const courseSortFilter = atom({
+  key: "courseSortFilter",
+  default: false,
+});
+
 export {
   DarkMode,
   globalSearchInput,
@@ -212,4 +277,17 @@ export {
   AddUserPasswordInputValidator,
   AddUserEmailInput,
   AddUserEmailInputValidator,
+  AddCourseNameInput,
+  AddCourseNameInputValidator,
+  AddCourseCoverUploader,
+  AddCourseCoverUploaderValidator,
+  AddCourseTeacherInput,
+  AddCourseTeacherInputValidator,
+  AddCoursePriceInput,
+  AddCoursePriceInputValidator,
+  AddCourseDurationInput,
+  AddCourseDurationInputValidator,
+  coursesCount,
+  courseSearchInput,
+  courseSortFilter,
 };
