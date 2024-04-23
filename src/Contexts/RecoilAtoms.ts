@@ -133,6 +133,11 @@ const isErrorModal: RecoilState<boolean> = atom({
   default: false,
 });
 
+const progressPersent = atom({
+  key: "progressPersent",
+  default: 100,
+});
+
 const UserInfoSortFilter: RecoilState<boolean> = atom({
   key: "UserInfoSortFilter",
   default: false,
@@ -290,4 +295,5 @@ export {
   coursesCount,
   courseSearchInput,
   courseSortFilter,
+  progressPersent,
 };

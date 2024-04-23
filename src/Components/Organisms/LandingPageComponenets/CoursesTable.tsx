@@ -29,10 +29,7 @@ const CoursesTable = memo(() => {
                 </label>
               </div>
             </td>
-            <th
-              scope="row"
-              className="px-6 py-4 text-black whitespace-nowrap dark:text-white"
-            >
+            <th scope="row" className="px-6 py-4 text-black whitespace-nowrap dark:text-white">
               <img
                 className="rounded-tr-2xl rounded-bl-2xl w-32 h-20 border-2 border-white dark:border-black drop-shadow-lg object-cover"
                 src={`/images/${course.course_img}`}
@@ -40,7 +37,9 @@ const CoursesTable = memo(() => {
             </th>
             <td className="px-6 py-4">{course.course_name}</td>
             <td className="px-6 py-4">{course.course_teacher}</td>
-            <td className="px-6 py-4 text-nowrap">{course.course_price.toLocaleString()} T</td>
+            <td className="px-6 py-4 text-nowrap">
+              {course.course_price === 0 ? "Free" : `${course.course_price.toLocaleString()} T`}
+            </td>
           </tr>
         ))}
     </Table>

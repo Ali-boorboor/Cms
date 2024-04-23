@@ -24,7 +24,9 @@ const CoursesTableTRS = memo((course: any) => {
       <td className="px-6 py-4">{course.course_name}</td>
       <td className="px-6 py-4">{course.course_teacher}</td>
       <td className="px-6 py-4">{course.course_duration}H</td>
-      <td className="px-6 py-4">{course.course_price.toLocaleString()} </td>
+      <td className="px-6 py-4 text-nowrap">
+        {course.course_price === 0 ? "Free" : `${course.course_price.toLocaleString()} T`}
+      </td>
       <td className="px-6 py-4">
         {course.course_offer ? (
           course.course_offer
