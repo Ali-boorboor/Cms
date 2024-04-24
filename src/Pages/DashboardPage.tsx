@@ -1,4 +1,4 @@
-import Landing from "../Components/Templates/Landing";
+import Dashboard from "../Components/Templates/Dashboard";
 import { memo, useEffect } from "react";
 import { AxiosInstanceApp } from "../Services/AxiosInstanceApp";
 import {
@@ -57,7 +57,7 @@ const DashboardPage = memo(() => {
     }
   }, []);
 
-  return <Landing />;
+  return <Dashboard />;
 });
 
 export default DashboardPage;

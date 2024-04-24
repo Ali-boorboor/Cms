@@ -15,7 +15,7 @@ const ThemeSwitchBtn: ThemeSwithBtnType = memo(() => {
 
   return (
     <button
-      className="bg-lightBlack text-white dark:bg-lightRed rounded-full p-2 border-2 border-lightRed dark:border-lightYellow"
+      className="bg-secondaryColor text-white dark:bg-primaryColor rounded-full p-2 border-2 border-primaryColor dark:border-trinityColor"
       onClick={() => setDarkModeHandler()}
     >
       {Theme ? <PiSunHorizon className="w-6 h-6" /> : <TbHazeMoon className="w-6 h-6" />}

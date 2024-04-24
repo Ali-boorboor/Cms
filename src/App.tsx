@@ -12,7 +12,7 @@ const App = memo(() => {
 
   useEffect(() => {
     Theme
-      ? (document.body.className = "dark bg-lightBlack bg-opacity-80")
+      ? (document.body.className = "dark bg-secondaryColor bg-opacity-80")
       : (document.body.className = "bg-zinc-300");
   }, [Theme]);
 

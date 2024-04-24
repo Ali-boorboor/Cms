@@ -12,7 +12,7 @@ const MainHeader: MainHeaderType = memo(() => {
   const [headerItems, setHeaderItems] = useRecoilState(showHeaderItems);
 
   return (
-    <header className="flex justify-center sm:justify-between items-center p-4 sm:pr-8 gap-4 sticky top-0 right-0 basis-4/5 bg-zinc-400 dark:bg-lightBlack drop-shadow-lg rounded-tl-lg rounded-bl-lg z-30">
+    <header className="flex justify-center sm:justify-between items-center p-4 sm:pr-8 gap-4 sticky top-0 right-0 basis-4/5 bg-zinc-400 dark:bg-secondaryColor drop-shadow-lg rounded-tl-lg rounded-bl-lg z-30">
       <CmsLogo />
       {window.innerWidth > 600 ? (
         <section className="hidden sm:flex justify-center items-center gap-4">
@@ -22,7 +22,7 @@ const MainHeader: MainHeaderType = memo(() => {
       ) : (
         <>
           <button
-            className={`rounded-full p-2 bg-lightBlack text-white dark:bg-lightRed border-2 border-lightRed dark:border-white ${
+            className={`rounded-full p-2 bg-secondaryColor text-white dark:bg-primaryColor border-2 border-primaryColor dark:border-white ${
               headerItems ? "hidden" : "block"
             }`}
             onClick={() => (headerItems ? setHeaderItems(false) : setHeaderItems(true))}
@@ -30,14 +30,14 @@ const MainHeader: MainHeaderType = memo(() => {
             <IoIosMenu className="w-6 h-6" />
           </button>
           <section
-            className={`flex fixed top-0 right-0 bottom-0 h-screen p-6 bg-zinc-400 drop-shadow-md dark:bg-lightBlack flex-col justify-center items-center gap-4 ${
+            className={`flex fixed top-0 right-0 bottom-0 h-screen p-6 bg-zinc-400 drop-shadow-md dark:bg-secondaryColor flex-col justify-center items-center gap-4 ${
               headerItems
                 ? "w-full opacity-100 pointer-events-auto"
                 : "w-0 opacity-0 pointer-events-none"
             }`}
           >
             <button
-              className="rounded-full p-2 bg-lightBlack text-white dark:bg-lightRed border-2 border-lightRed dark:border-white"
+              className="rounded-full p-2 bg-secondaryColor text-white dark:bg-primaryColor border-2 border-primaryColor dark:border-white"
               onClick={() => setHeaderItems(false)}
             >
               <RiCloseCircleLine className="w-6 h-6" />

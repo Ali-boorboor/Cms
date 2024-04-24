@@ -16,7 +16,7 @@ const CommentTable: CommentTableType = memo(() => {
           .slice(0, 3)
           .map((comment) => (
             <tr
-              className="bg-lightRed bg-opacity-60 border-b dark:bg-opacity-100 dark:border-zinc-700 hover:bg-opacity-70 dark:hover:bg-opacity-70"
+              className="bg-primaryColor bg-opacity-60 border-b dark:bg-opacity-100 dark:border-zinc-700 hover:bg-opacity-70 dark:hover:bg-opacity-70"
               key={comment.comment_id}
             >
               <td className="w-4 p-4">

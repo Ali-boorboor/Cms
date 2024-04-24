@@ -16,13 +16,13 @@ const GlobalSearchInput: GlobalSearchInputType = memo(() => {
     <label
       className={`${
         globalSearch ? "sm:w-60 w-40" : "w-10"
-      } flex gap-2 items-center justify-center bg-lightRed bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-lightBlack dark:border-white`}
+      } flex gap-2 items-center justify-center bg-primaryColor bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-secondaryColor dark:border-white`}
     >
       <FcSearch className="w-6 h-6 cursor-pointer" onClick={() => setGlobalSearchHandler()} />
       {globalSearch && (
         <input
           type="text"
-          className="w-full outline-none bg-transparent font-bold capitalize text-lightBlack dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
+          className="w-full outline-none bg-transparent font-bold capitalize text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
           placeholder="Search"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}

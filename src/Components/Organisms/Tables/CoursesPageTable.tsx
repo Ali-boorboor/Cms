@@ -6,7 +6,7 @@ const CoursesPageTable: CoursesPageTableType = memo(
     return (
       <div className="overflow-x-auto shadow-md rounded-bl-lg rounded-br-lg">
         <table className="w-full text-sm rtl:text-right text-zinc-700 dark:text-white text-center">
-          <thead className="text-xs text-zinc-700 uppercase bg-zinc-400 dark:bg-lightBlack dark:text-zinc-400">
+          <thead className="text-xs text-zinc-700 uppercase bg-zinc-400 dark:bg-secondaryColor dark:text-zinc-400">
             <tr>
               <th scope="col" className="p-4">
                 <div className="flex items-center">

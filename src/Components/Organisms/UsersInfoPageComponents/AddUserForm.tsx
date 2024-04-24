@@ -86,23 +86,23 @@ const AddUserForm = memo(() => {
   return (
     <>
       <form
-        className="flex flex-col rounded-lg overflow-hidden bg-zinc-400 dark:bg-lightBlack pb-4"
+        className="flex flex-col rounded-lg overflow-hidden bg-zinc-400 dark:bg-secondaryColor pb-4"
         onSubmit={(e) => addUserFormSubmitHandler(e)}
       >
-        <h1 className="flex items-center gap-2 md:flex justify-center text-xl font-bold p-2 text-lightBlack dark:text-black bg-lightRed bg-opacity-60 dark:bg-opacity-100">
+        <h1 className="flex items-center gap-2 md:flex justify-center text-xl font-bold p-2 text-secondaryColor dark:text-black bg-primaryColor bg-opacity-60 dark:bg-opacity-100">
           Add New User
           <FaUserPlus className="w-5 h-5" />
         </h1>
         <div className="flex flex-col justify-center items-center gap-4">
           <div className="flex items-center justify-center gap-6 md:flex-nowrap flex-wrap p-4">
-            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-lightRed bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-lightBlack dark:border-white">
-              <MdOutlineDriveFileRenameOutline className="w-5 h-5 dark:text-white text-lightBlack" />
+            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-primaryColor bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-secondaryColor dark:border-white">
+              <MdOutlineDriveFileRenameOutline className="w-5 h-5 dark:text-white text-secondaryColor" />
               <input
                 type="text"
                 placeholder="User Name"
                 value={addUserNameInput}
                 onChange={(e) => setAddUserNameInput(e.target.value)}
-                className="w-full outline-none bg-transparent font-bold text-lightBlack dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
+                className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
               <button className="bg-white rounded-full p-1">
                 {addUserNameInputValidator ? (
@@ -112,14 +112,14 @@ const AddUserForm = memo(() => {
                 )}
               </button>
             </label>
-            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-lightRed bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-lightBlack dark:border-white">
-              <MdPassword className="w-5 h-5 dark:text-white text-lightBlack" />
+            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-primaryColor bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-secondaryColor dark:border-white">
+              <MdPassword className="w-5 h-5 dark:text-white text-secondaryColor" />
               <input
                 type="password"
                 placeholder="User Password"
                 value={addUserPasswordInput}
                 onChange={(e) => setAddUserPasswordInput(e.target.value)}
-                className="w-full outline-none bg-transparent font-bold text-lightBlack dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
+                className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
               <button className="bg-white rounded-full p-1">
                 {addUserPasswordInputValidator ? (
@@ -131,14 +131,14 @@ const AddUserForm = memo(() => {
             </label>
           </div>
           <div className="px-4 w-full flex justify-center items-center">
-            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-lightRed bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-lightBlack dark:border-white">
-              <MdAlternateEmail className="w-5 h-5 dark:text-white text-lightBlack" />
+            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-primaryColor bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-secondaryColor dark:border-white">
+              <MdAlternateEmail className="w-5 h-5 dark:text-white text-secondaryColor" />
               <input
                 type="email"
                 placeholder="User Email"
                 value={addUserEmailInput}
                 onChange={(e) => setAddUserEmailInput(e.target.value)}
-                className="w-full outline-none bg-transparent font-bold text-lightBlack dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
+                className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
               <button className="bg-white rounded-full p-1">
                 {addUserEmailInputValidator ? (

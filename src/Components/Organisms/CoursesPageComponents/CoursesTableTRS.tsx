@@ -2,7 +2,7 @@ import { memo } from "react";
 
 const CoursesTableTRS = memo((course: any) => {
   return (
-    <tr className="text-center bg-lightRed bg-opacity-60 border-b dark:bg-opacity-100 dark:border-zinc-700 hover:bg-opacity-70 dark:hover:bg-opacity-70">
+    <tr className="text-center bg-primaryColor bg-opacity-60 border-b dark:bg-opacity-100 dark:border-zinc-700 hover:bg-opacity-70 dark:hover:bg-opacity-70">
       <td className="w-4 p-4">
         <div className="flex items-center">
           <input

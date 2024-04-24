@@ -15,7 +15,7 @@ const OffTicketTable = memo(() => {
           .slice(0, 3)
           .map((ticket) => (
             <tr
-              className="bg-lightRed bg-opacity-60 border-b dark:bg-opacity-100 dark:border-zinc-700 hover:bg-opacity-70 dark:hover:bg-opacity-70"
+              className="bg-primaryColor bg-opacity-60 border-b dark:bg-opacity-100 dark:border-zinc-700 hover:bg-opacity-70 dark:hover:bg-opacity-70"
               key={ticket.off_id}
             >
               <td className="w-4 p-4">
@@ -30,10 +30,7 @@ const OffTicketTable = memo(() => {
                   </label>
                 </div>
               </td>
-              <th
-                scope="row"
-                className="px-6 py-4 text-black whitespace-nowrap dark:text-white"
-              >
+              <th scope="row" className="px-6 py-4 text-black whitespace-nowrap dark:text-white">
                 <div className="text-base font-semibold">{ticket.off_code}</div>
               </th>
               <td className="px-6 py-4">{ticket.off_quantity}</td>

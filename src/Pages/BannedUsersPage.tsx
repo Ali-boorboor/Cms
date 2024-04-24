@@ -1,26 +1,46 @@
-import UserInfoTable from "../../Components/Organisms/UsersInfoPageComponents/UserInfoTable";
-import AddUserForm from "../Organisms/UsersInfoPageComponents/AddUserForm";
-import Alert from "../../Components/Atoms/Alert";
+import UserInfoTable from "../Components/Organisms/UsersInfoPageComponents/UserInfoTable";
+import BannedUsers from "../Components/Templates/BannedUsers";
 import { memo, useEffect } from "react";
-import { useRecoilState } from "recoil";
 import {
+  GetAllBannedUsersResponseType,
+  GetAllUserResponsesType,
+} from "../Types/AxiosResponsesType/AxiosResponsesType";
+import { AxiosInstanceApp } from "../Services/AxiosInstanceApp";
+import {
+  AllBannedUsers,
   AllUsers,
   UserInfoSearchInput,
   UserInfoSortFilter,
   usersCount,
-} from "../../Contexts/RecoilAtoms";
-import { useNavigate } from "react-router";
+} from "../Contexts/RecoilAtoms";
+import { useRecoilState } from "recoil";
+import Alert from "../Components/Atoms/Alert";
 import { PiUsersThreeFill } from "react-icons/pi";
-import { FaSortAmountDown } from "react-icons/fa";
-import { FaSortAmountUpAlt } from "react-icons/fa";
+import { FaSortAmountDown, FaSortAmountUpAlt } from "react-icons/fa";
 import { FcSearch } from "react-icons/fc";
+import { useNavigate } from "react-router";
 
-const UsersInfo = memo(() => {
+const BannedUsersPage = memo(() => {
   const [allUsersCount, setAllUsersCount] = useRecoilState(usersCount);
   const [searchInput, setSearchInput] = useRecoilState(UserInfoSearchInput);
   const [userInfoSortFilter, setUserInfoSortFilter] = useRecoilState(UserInfoSortFilter);
-  const [allUsers] = useRecoilState(AllUsers);
+  const [allBannedUsers, setAllBannedUsers] = useRecoilState(AllBannedUsers);
+  const [allUsers, setAllUsers] = useRecoilState(AllUsers);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "CMS - PANEL | BANNED-USERS";
+
+    allBannedUsers[0].banned_id === 0 &&
+      AxiosInstanceApp.get("/ban").then((res: GetAllBannedUsersResponseType) =>
+        setAllBannedUsers(res.data.data)
+      );
+
+    allUsers[0].user_id === 0 &&
+      AxiosInstanceApp.get("/users").then((res: GetAllUserResponsesType) =>
+        setAllUsers(res.data.data)
+      );
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,8 +63,8 @@ const UsersInfo = memo(() => {
   };
 
   return (
-    <main className="flex flex-col m-auto gap-4 p-4 lg:w-full md:w-[34rem] sm:w-80 w-72">
-      <AddUserForm />
+    <main className="flex flex-col m-auto gap-4 p-4 lg:w-full md:w-[34rem] w-[24rem]">
+      <BannedUsers />
       {allUsers[0].user_id === 0 ? (
         <Alert text="Found No User" />
       ) : (
@@ -105,4 +125,4 @@ const UsersInfo = memo(() => {
   );
 });
 
-export default UsersInfo;
+export default BannedUsersPage;

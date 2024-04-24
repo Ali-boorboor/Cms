@@ -259,6 +259,21 @@ const courseSortFilter = atom({
   default: false,
 });
 
+const bannedUsersCount = atom({
+  key: "bannedUsersCount",
+  default: 0,
+});
+
+const bannedUsersSearchInput = atom({
+  key: "bannedUsersSearchInput",
+  default: "",
+});
+
+const bannedUsersSortFilter = atom({
+  key: "bannedUsersSortFilter",
+  default: false,
+});
+
 export {
   DarkMode,
   globalSearchInput,
@@ -296,4 +311,7 @@ export {
   courseSearchInput,
   courseSortFilter,
   progressPersent,
+  bannedUsersCount,
+  bannedUsersSearchInput,
+  bannedUsersSortFilter,
 };

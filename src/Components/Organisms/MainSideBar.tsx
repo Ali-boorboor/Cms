@@ -11,12 +11,12 @@ import { MainSideBarType } from "../../Types/OrganismsType/OrganismsType";
 
 const MainSideBar: MainSideBarType = memo(() => {
   const ActiveLinksStyle =
-    "flex items-center gap-2 px-4 py-1 rounded-md text-white font-medium text-base bg-lightRed dark:bg-lightBlack text-nowrap hover:bg-lightRed dark:hover:bg-lightBlack";
+    "flex items-center gap-2 px-4 py-1 rounded-md text-white font-medium text-base bg-primaryColor dark:bg-secondaryColor text-nowrap hover:bg-primaryColor dark:hover:bg-secondaryColor";
   const UnActiveLinksStyle =
-    "flex items-center gap-2 px-4 py-1 rounded-md text-lightBlack dark:text-white font-medium text-base text-nowrap hover:bg-lightRed dark:hover:bg-lightBlack";
+    "flex items-center gap-2 px-4 py-1 rounded-md text-secondaryColor dark:text-white font-medium text-base text-nowrap hover:bg-primaryColor dark:hover:bg-secondaryColor";
 
   return (
-    <nav className="flex flex-col justify-start gap-4 sticky basis-1/5 left-0 top-0 p-4 pl-5 h-screen bg-lightRed bg-opacity-60 dark:bg-opacity-100 border-r border-white dark:border-black">
+    <nav className="flex flex-col justify-start gap-4 sticky basis-1/5 left-0 top-0 p-4 pl-5 h-screen bg-primaryColor bg-opacity-60 dark:bg-opacity-100 border-r border-white dark:border-black">
       <div className="hidden sm:flex justify-center items-center my-8">
         <CmsLogo />
       </div>

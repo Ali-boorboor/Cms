@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  @apply transition-all duration-300 ease-linear font-f-woff2 selection:bg-lightBlack selection:text-lightRed;
+  @apply transition-all duration-300 ease-linear font-f-woff2 selection:bg-secondaryColor selection:text-primaryColor;
 }
 
 @font-face {

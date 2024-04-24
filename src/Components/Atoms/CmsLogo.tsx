@@ -8,8 +8,8 @@ const CmsLogo: CmsLogoType = memo(() => {
       to="/"
       className="flex items-center rounded-md border-2 border-black w-[7.6rem] overflow-hidden"
     >
-      <p className="bg-lightBlack dark:bg-black text-white p-2 text-base font-bold">CMS</p>
-      <p className="bg-lightRed text-white p-2 text-base font-bold">PANEL</p>
+      <p className="bg-secondaryColor dark:bg-black text-white p-2 text-base font-bold">CMS</p>
+      <p className="bg-primaryColor text-white p-2 text-base font-bold">PANEL</p>
     </Link>
   );
 });

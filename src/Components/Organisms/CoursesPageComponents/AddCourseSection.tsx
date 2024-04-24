@@ -125,23 +125,23 @@ const AddCourseSection = memo(() => {
   return (
     <>
       <form
-        className="flex flex-col rounded-lg overflow-hidden bg-zinc-400 dark:bg-lightBlack pb-4"
+        className="flex flex-col rounded-lg overflow-hidden bg-zinc-400 dark:bg-secondaryColor pb-4"
         onSubmit={(e) => addCourseHandler(e)}
       >
-        <h1 className="flex items-center gap-2 md:flex justify-center text-xl font-bold p-2 text-lightBlack dark:text-black bg-lightRed bg-opacity-60 dark:bg-opacity-100">
+        <h1 className="flex items-center gap-2 md:flex justify-center text-xl font-bold p-2 text-secondaryColor dark:text-black bg-primaryColor bg-opacity-60 dark:bg-opacity-100">
           Add New Course
           <FaBookMedical className="w-5 h-5" />
         </h1>
         <div className="flex flex-col justify-center items-center gap-2 p-2">
           <div className="flex items-center justify-center gap-4 md:flex-nowrap flex-wrap p-2">
-            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-lightRed bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-lightBlack dark:border-white">
-              <MdOutlineDriveFileRenameOutline className="w-5 h-5 dark:text-white text-lightBlack" />
+            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-primaryColor bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-secondaryColor dark:border-white">
+              <MdOutlineDriveFileRenameOutline className="w-5 h-5 dark:text-white text-secondaryColor" />
               <input
                 type="text"
                 placeholder="Course Name"
                 value={addCourseNameInput}
                 onChange={(e) => setAddCourseNameInput(e.target.value)}
-                className="w-full outline-none bg-transparent font-bold text-lightBlack dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
+                className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
               <button className="bg-white rounded-full p-1">
                 {courseNameInputValidator ? (
@@ -151,14 +151,14 @@ const AddCourseSection = memo(() => {
                 )}
               </button>
             </label>
-            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-lightRed bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-lightBlack dark:border-white">
-              <GiTeacher className="w-5 h-5 dark:text-white text-lightBlack" />
+            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-primaryColor bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-secondaryColor dark:border-white">
+              <GiTeacher className="w-5 h-5 dark:text-white text-secondaryColor" />
               <input
                 type="text"
                 placeholder="Course Teacher"
                 value={courseTeacherInput}
                 onChange={(e) => setCourseTeacherInput(e.target.value)}
-                className="w-full outline-none bg-transparent font-bold text-lightBlack dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
+                className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
               <button className="bg-white rounded-full p-1">
                 {courseTeacherInputValidator ? (
@@ -170,14 +170,14 @@ const AddCourseSection = memo(() => {
             </label>
           </div>
           <div className="flex items-center justify-center gap-4 md:flex-nowrap flex-wrap p-2">
-            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-lightRed bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-lightBlack dark:border-white">
-              <FaMoneyBillAlt className="w-5 h-5 dark:text-white text-lightBlack" />
+            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-primaryColor bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-secondaryColor dark:border-white">
+              <FaMoneyBillAlt className="w-5 h-5 dark:text-white text-secondaryColor" />
               <input
                 type="number"
                 placeholder="Course Price"
                 value={coursePriceInput}
                 onChange={(e) => setCoursePriceInput(+e.target.value)}
-                className="w-full outline-none bg-transparent font-bold text-lightBlack dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
+                className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
               <button className="bg-white rounded-full p-1">
                 {coursePriceInputValidator ? (
@@ -187,14 +187,14 @@ const AddCourseSection = memo(() => {
                 )}
               </button>
             </label>
-            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-lightRed bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-lightBlack dark:border-white">
-              <MdTimer className="w-5 h-5 dark:text-white text-lightBlack" />
+            <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-primaryColor bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-secondaryColor dark:border-white">
+              <MdTimer className="w-5 h-5 dark:text-white text-secondaryColor" />
               <input
                 type="number"
                 placeholder="Course Duration"
                 value={courseDurationInput}
                 onChange={(e) => setCourseDurationInput(+e.target.value)}
-                className="w-full outline-none bg-transparent font-bold text-lightBlack dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
+                className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
               <button className="bg-white rounded-full p-1">
                 {courseDurationInputValidator ? (
@@ -209,8 +209,8 @@ const AddCourseSection = memo(() => {
         <div className="p-2">
           <label
             htmlFor="Uploader"
-            className={`text-lightBlack cursor-pointer p-6 rounded-lg border dark:border-white border-black m-auto min-w-40 w-full max-w-80 h-20 flex items-center justify-center gap-2 ${
-              courseCoverUploaderValidator ? "bg-green-600" : "bg-lightRed"
+            className={`text-secondaryColor cursor-pointer p-6 rounded-lg border dark:border-white border-black m-auto min-w-40 w-full max-w-80 h-20 flex items-center justify-center gap-2 ${
+              courseCoverUploaderValidator ? "bg-green-600" : "bg-primaryColor"
             }`}
           >
             <FaFileImage className="w-5 h-5" />

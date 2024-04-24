@@ -19,7 +19,7 @@ import {
   AllCourses,
 } from "../../Contexts/RecoilAtoms";
 
-const Landing = memo(() => {
+const Dashboard = memo(() => {
   const [allUsers] = useRecoilState(AllUsers);
   const [allComments] = useRecoilState(AllComments);
   const [allTickets] = useRecoilState(AllTickets);
@@ -33,7 +33,7 @@ const Landing = memo(() => {
           <Alert text="Found No User" />
         ) : (
           <>
-            <h3 className="flex justify-center items-center gap-2 text-xl font-bold p-2 rounded-lg text-lightBlack dark:text-black bg-lightRed bg-opacity-60 dark:bg-opacity-100">
+            <h3 className="flex justify-center items-center gap-2 text-xl font-bold p-2 rounded-lg text-secondaryColor dark:text-black bg-primaryColor bg-opacity-60 dark:bg-opacity-100">
               Recently Added Users
               <PiUsersFill className="w-6 h-6" />
             </h3>
@@ -44,7 +44,7 @@ const Landing = memo(() => {
           <Alert text="Found No Course" />
         ) : (
           <>
-            <h3 className="flex justify-center items-center gap-2 text-xl font-bold p-2 rounded-lg text-lightBlack dark:text-black bg-lightRed bg-opacity-60 dark:bg-opacity-100">
+            <h3 className="flex justify-center items-center gap-2 text-xl font-bold p-2 rounded-lg text-secondaryColor dark:text-black bg-primaryColor bg-opacity-60 dark:bg-opacity-100">
               Recent Courses
               <GiBookmarklet className="w-6 h-6" />
             </h3>
@@ -55,7 +55,7 @@ const Landing = memo(() => {
           <Alert text="Found No Comment" />
         ) : (
           <>
-            <h3 className="flex justify-center items-center gap-2 text-xl font-bold p-2 rounded-lg text-lightBlack dark:text-black bg-lightRed bg-opacity-60 dark:bg-opacity-100">
+            <h3 className="flex justify-center items-center gap-2 text-xl font-bold p-2 rounded-lg text-secondaryColor dark:text-black bg-primaryColor bg-opacity-60 dark:bg-opacity-100">
               Recent Comments
               <FaComments className="w-6 h-6" />
             </h3>
@@ -66,7 +66,7 @@ const Landing = memo(() => {
           <Alert text="Found No Ticket" />
         ) : (
           <>
-            <h3 className="flex justify-center items-center gap-2 text-xl font-bold p-2 rounded-lg text-lightBlack dark:text-black bg-lightRed bg-opacity-60 dark:bg-opacity-100">
+            <h3 className="flex justify-center items-center gap-2 text-xl font-bold p-2 rounded-lg text-secondaryColor dark:text-black bg-primaryColor bg-opacity-60 dark:bg-opacity-100">
               Recent Tickets
               <GiTicket className="w-6 h-6" />
             </h3>
@@ -77,7 +77,7 @@ const Landing = memo(() => {
           <Alert text="Found No Banned User" />
         ) : (
           <>
-            <h3 className="flex justify-center items-center gap-2 text-xl font-bold p-2 rounded-lg text-lightBlack dark:text-black bg-lightRed bg-opacity-60 dark:bg-opacity-100">
+            <h3 className="flex justify-center items-center gap-2 text-xl font-bold p-2 rounded-lg text-secondaryColor dark:text-black bg-primaryColor bg-opacity-60 dark:bg-opacity-100">
               Recent Banned Users
               <FaBan className="w-6 h-6" />
             </h3>
@@ -89,4 +89,4 @@ const Landing = memo(() => {
   );
 });
 
-export default Landing;
+export default Dashboard;

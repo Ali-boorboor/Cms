@@ -8,7 +8,7 @@ const Error404Page = memo(() => {
 
   return (
     <main className="relative w-4/5 min-w-72 lg:h-full h-[30rem] m-auto mt-4 rounded-lg overflow-hidden">
-      <h1 className="absolute top-12 w-full text-center p-2 bg-zinc-300 dark:bg-lightBlack dark:bg-opacity-80 text-black dark:text-white text-2xl font-bold uppercase">
+      <h1 className="absolute top-12 w-full text-center p-2 bg-zinc-300 dark:bg-secondaryColor dark:bg-opacity-80 text-black dark:text-white text-2xl font-bold uppercase">
         you are in the wrong path
       </h1>
       <img
@@ -16,11 +16,11 @@ const Error404Page = memo(() => {
         alt="not-found-image"
         className="w-full h-full object-cover"
       />
-      <p className="flex flex-col justify-center items-center absolute bottom-12 text-center capitalize w-full p-2 text-lg font-bold bg-zinc-300 dark:bg-lightBlack dark:bg-opacity-80 text-black dark:text-white">
+      <p className="flex flex-col justify-center items-center absolute bottom-12 text-center capitalize w-full p-2 text-lg font-bold bg-zinc-300 dark:bg-secondaryColor dark:bg-opacity-80 text-black dark:text-white">
         the page you are looking for doesn't exist
         <Link
           to="/"
-          className="text-lg text-black dark:text-white bg-lightRed font-bold underline p-1 rounded-lg"
+          className="text-lg text-black dark:text-white bg-primaryColor font-bold underline p-1 rounded-lg"
         >
           Dashboard
         </Link>

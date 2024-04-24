@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        lightRed: "#38bdf8",
-        lightBlack: "#545353",
-        lightYellow: "#f1ebd3",
+        primaryColor: "#38bdf8",
+        secondaryColor: "#545353",
+        trinityColor: "#f1ebd3",
       },
       fontFamily: {
         "f-woff2": "f-woff2",
