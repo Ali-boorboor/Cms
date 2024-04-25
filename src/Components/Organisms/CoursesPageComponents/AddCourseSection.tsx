@@ -1,4 +1,4 @@
-import Toast from "../../Atoms/Toast";
+import Toast from "../../Molecules/Toast";
 import React, { memo, useEffect } from "react";
 import { GiTeacher } from "react-icons/gi";
 import { FaBookMedical } from "react-icons/fa";
@@ -112,7 +112,6 @@ const AddCourseSection = memo(() => {
       setErrorFormModal(true);
     }
   };
-  console.log(courseCoverUploader);
   const resetFormHandler = () => {
     setResetFormModal(true);
     setAddCourseNameInput("");

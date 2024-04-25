@@ -244,6 +244,31 @@ const AddCourseDurationInputValidator: RecoilState<boolean> = atom({
   default: false,
 });
 
+const EditCourseNameInput = atom({
+  key: "EditCourseNameInput",
+  default: "",
+});
+
+const EditCourseTeacherInput = atom({
+  key: "EditCourseTeacherInput",
+  default: "",
+});
+
+const EditCoursePriceInput = atom({
+  key: "EditCoursePriceInput",
+  default: 0,
+});
+
+const EditCourseDurationInput = atom({
+  key: "EditCourseDurationInput",
+  default: 0,
+});
+
+const EditCourseOfferInput = atom({
+  key: "EditCourseOfferInput",
+  default: 0,
+});
+
 const coursesCount = atom({
   key: "coursesCount",
   default: 0,
@@ -259,6 +284,26 @@ const courseSortFilter = atom({
   default: false,
 });
 
+const isCourseEditModal = atom({
+  key: "isCourseEditModal",
+  default: false,
+});
+
+const MainEditModalCourse = atom({
+  key: "MainEditModalCourse",
+  default: {
+    course_id: 0,
+    course_duration: 0,
+    course_price: 0,
+    course_offer: 0,
+    course_name: "",
+    course_teacher: "",
+    course_img: "",
+    created_At: "",
+    updated_At: "",
+  },
+});
+
 const bannedUsersCount = atom({
   key: "bannedUsersCount",
   default: 0,
@@ -271,6 +316,41 @@ const bannedUsersSearchInput = atom({
 
 const bannedUsersSortFilter = atom({
   key: "bannedUsersSortFilter",
+  default: false,
+});
+
+const ticketsCount: RecoilState<number> = atom({
+  key: "ticketsCount",
+  default: 0,
+});
+
+const AddTicketCodeInput: RecoilState<string> = atom({
+  key: "AddTicketCodeInput",
+  default: "",
+});
+
+const AddTicketCodeInputValidator: RecoilState<boolean> = atom({
+  key: "AddTicketCodeInputValidator",
+  default: false,
+});
+
+const AddTicketQuantityInput: RecoilState<number> = atom({
+  key: "AddTicketQuantityInput",
+  default: 0,
+});
+
+const AddTicketQuantityInputValidator: RecoilState<boolean> = atom({
+  key: "AddTicketQuantityInputValidator",
+  default: false,
+});
+
+const AddTicketCourseIDInput: RecoilState<number> = atom({
+  key: "AddTicketCourseIDInput",
+  default: 0,
+});
+
+const AddTicketCourseIDInputValidator: RecoilState<boolean> = atom({
+  key: "AddTicketCourseIDInputValidator",
   default: false,
 });
 
@@ -307,11 +387,25 @@ export {
   AddCoursePriceInputValidator,
   AddCourseDurationInput,
   AddCourseDurationInputValidator,
+  EditCourseNameInput,
+  EditCourseTeacherInput,
+  EditCoursePriceInput,
+  EditCourseDurationInput,
+  EditCourseOfferInput,
   coursesCount,
   courseSearchInput,
   courseSortFilter,
+  isCourseEditModal,
+  MainEditModalCourse,
   progressPersent,
   bannedUsersCount,
   bannedUsersSearchInput,
   bannedUsersSortFilter,
+  ticketsCount,
+  AddTicketCodeInput,
+  AddTicketCodeInputValidator,
+  AddTicketQuantityInput,
+  AddTicketQuantityInputValidator,
+  AddTicketCourseIDInput,
+  AddTicketCourseIDInputValidator,
 };

@@ -1,4 +1,4 @@
-import Toast from "../../Atoms/Toast";
+import Toast from "../../Molecules/Toast";
 import React, { memo, useEffect } from "react";
 import { FaUserPlus } from "react-icons/fa";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
