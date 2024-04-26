@@ -1,12 +1,15 @@
 import Table from "../Tables/Table";
+import UserRemoveModal from "../RemoveModals/UserRemoveModal";
 import { UserTableType } from "../../../Types/OrganismsType/OrganismsType";
 import { memo } from "react";
 import { useRecoilState } from "recoil";
-import { AllUsers } from "../../../Contexts/RecoilAtoms";
+import { AllUsers, isRemoveModalForm, mainUserIDToRemove } from "../../../Contexts/RecoilAtoms";
 import { useNavigate } from "react-router";
 
 const UserTable: UserTableType = memo(() => {
   const allUsers = useRecoilState(AllUsers);
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [, setMainUserRemove] = useRecoilState(mainUserIDToRemove);
   const navigate = useNavigate();
 
   return (
@@ -38,7 +41,13 @@ const UserTable: UserTableType = memo(() => {
               </th>
               <td className="px-6 py-4">{user.user_email}</td>
               <td className="px-6 py-4">
-                <button className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white">
+                <button
+                  className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white"
+                  onClick={() => {
+                    setIsRemoveModal(true);
+                    setMainUserRemove(user.user_id);
+                  }}
+                >
                   Remove
                 </button>
               </td>
@@ -53,6 +62,7 @@ const UserTable: UserTableType = memo(() => {
             </tr>
           ))}
       </Table>
+      {isRemoveModal && <UserRemoveModal bgOpacity="bg-opacity-50" />}
     </>
   );
 });

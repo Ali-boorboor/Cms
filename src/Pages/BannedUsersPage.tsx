@@ -11,7 +11,6 @@ import {
   AllUsers,
   UserInfoSearchInput,
   UserInfoSortFilter,
-  usersCount,
 } from "../Contexts/RecoilAtoms";
 import { useRecoilState } from "recoil";
 import Alert from "../Components/Atoms/Alert";
@@ -21,7 +20,6 @@ import { FcSearch } from "react-icons/fc";
 import { useNavigate } from "react-router";
 
 const BannedUsersPage = memo(() => {
-  const [allUsersCount, setAllUsersCount] = useRecoilState(usersCount);
   const [searchInput, setSearchInput] = useRecoilState(UserInfoSearchInput);
   const [userInfoSortFilter, setUserInfoSortFilter] = useRecoilState(UserInfoSortFilter);
   const [allBannedUsers, setAllBannedUsers] = useRecoilState(AllBannedUsers);
@@ -42,17 +40,6 @@ const BannedUsersPage = memo(() => {
       );
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAllUsersCount((prevCount) => prevCount + 1);
-    }, 60);
-
-    if (allUsersCount === allUsers.length) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [allUsersCount, allUsers]);
-
   const searchUserHandler = () => {
     if (searchInput.length) {
       const searchUserResult = allUsers.filter(
@@ -71,7 +58,7 @@ const BannedUsersPage = memo(() => {
         <section className="flex flex-col">
           <div className="flex gap-4 items-center justify-between rounded-tl-lg rounded-tr-lg bg-zinc-400 dark:bg-secondaryColor px-8 p-2 border-b border-white dark:border-black">
             <h2 className="hidden md:flex justify-center items-center basis-3/5 gap-2 text-xl font-bold p-2 rounded-lg text-secondaryColor dark:text-black bg-primaryColor bg-opacity-60 dark:bg-opacity-100">
-              {`All Users (${allUsersCount})`}
+              {`All Users (${allUsers.length})`}
               <PiUsersThreeFill className="w-6 h-6" />
             </h2>
             <div className="flex justify-end items-center gap-6 basis-2/5">

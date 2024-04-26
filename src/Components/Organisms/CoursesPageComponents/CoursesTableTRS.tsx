@@ -1,11 +1,19 @@
 import EditCourseModal from "../../Molecules/EditCourseModal";
+import CourseRemoveModal from "../RemoveModals/CourseRemoveModal";
 import { memo } from "react";
 import { useRecoilState } from "recoil";
-import { MainEditModalCourse, isCourseEditModal } from "../../../Contexts/RecoilAtoms";
+import {
+  MainEditModalCourse,
+  isCourseEditModal,
+  isRemoveModalForm,
+  mainCourseIDToRemove,
+} from "../../../Contexts/RecoilAtoms";
 
 const CoursesTableTRS = memo((course: any) => {
   const [courseEditModal, setCourseEditModal] = useRecoilState(isCourseEditModal);
   const [, setMainEditModalCourse] = useRecoilState(MainEditModalCourse);
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [, setMainCourseRemove] = useRecoilState(mainCourseIDToRemove);
 
   return (
     <>
@@ -65,12 +73,19 @@ const CoursesTableTRS = memo((course: any) => {
           </button>
         </td>
         <td className="px-6 py-4">
-          <button className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white">
+          <button
+            className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white"
+            onClick={() => {
+              setIsRemoveModal(true);
+              setMainCourseRemove(course.course_id);
+            }}
+          >
             Remove
           </button>
         </td>
       </tr>
       {courseEditModal && <EditCourseModal />}
+      {isRemoveModal && <CourseRemoveModal bgOpacity="bg-opacity-50" />}
     </>
   );
 });

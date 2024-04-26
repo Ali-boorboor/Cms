@@ -1,10 +1,9 @@
 import BannedUsersTable from "../Organisms/BannedUsersPageComponents/BannedUsersTable";
 import Alert from "../Atoms/Alert";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import {
   AllBannedUsers,
-  bannedUsersCount,
   bannedUsersSearchInput,
   bannedUsersSortFilter,
 } from "../../Contexts/RecoilAtoms";
@@ -14,20 +13,8 @@ import { FaUserLargeSlash } from "react-icons/fa6";
 
 const BannedUsers = memo(() => {
   const allBannedUsers = useRecoilValue(AllBannedUsers);
-  const [allBannedUsersCount, setAllBannedUsersCount] = useRecoilState(bannedUsersCount);
   const [searchInput, setSearchInput] = useRecoilState(bannedUsersSearchInput);
   const [BannedUsersSortFilter, setBannedUsersSortFilter] = useRecoilState(bannedUsersSortFilter);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAllBannedUsersCount((prevCount) => prevCount + 1);
-    }, 60);
-
-    if (allBannedUsersCount === allBannedUsers.length) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [allBannedUsersCount, allBannedUsers]);
 
   return (
     <main>
@@ -37,7 +24,7 @@ const BannedUsers = memo(() => {
         <section className="flex flex-col">
           <div className="flex gap-4 items-center justify-between rounded-tl-lg rounded-tr-lg bg-zinc-400 dark:bg-secondaryColor px-8 p-2 border-b border-white dark:border-black">
             <h2 className="hidden md:flex justify-center items-center basis-3/5 gap-2 text-xl font-bold p-2 rounded-lg text-secondaryColor dark:text-black bg-primaryColor bg-opacity-60 dark:bg-opacity-100">
-              {`All Banned Users (${allBannedUsersCount})`}
+              {`All Banned Users (${allBannedUsers.length})`}
               <FaUserLargeSlash className="w-6 h-6" />
             </h2>
             <div className="flex justify-end items-center gap-6 basis-2/5">

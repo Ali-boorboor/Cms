@@ -1,10 +1,17 @@
 import Table from "../Tables/Table";
+import CommentRemoveModal from "../RemoveModals/CommentRemoveModal";
 import { CommentTableType } from "../../../Types/OrganismsType/OrganismsType";
 import { memo } from "react";
 import { useRecoilState } from "recoil";
-import { AllComments } from "../../../Contexts/RecoilAtoms";
+import {
+  AllComments,
+  isRemoveModalForm,
+  mainCommentIDToRemove,
+} from "../../../Contexts/RecoilAtoms";
 
 const CommentTable: CommentTableType = memo(() => {
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [, setMainCommentRemove] = useRecoilState(mainCommentIDToRemove);
   const allComments = useRecoilState(AllComments);
 
   return (
@@ -37,13 +44,20 @@ const CommentTable: CommentTableType = memo(() => {
               <td className="px-6 py-4">{comment.comment_body.slice(0, 40)}...</td>
               <td className="px-6 py-4">{comment.commented_At.toLocaleString().slice(0, 25)}</td>
               <td className="px-6 py-4">
-                <button className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white">
+                <button
+                  className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white"
+                  onClick={() => {
+                    setIsRemoveModal(true);
+                    setMainCommentRemove(comment.comment_id);
+                  }}
+                >
                   Remove
                 </button>
               </td>
             </tr>
           ))}
       </Table>
+      {isRemoveModal && <CommentRemoveModal bgOpacity="bg-opacity-50" />}
     </>
   );
 });

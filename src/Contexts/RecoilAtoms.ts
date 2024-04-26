@@ -113,11 +113,6 @@ const AllCourses: RecoilState<CoursesData[]> = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-const usersCount: RecoilState<number> = atom({
-  key: "usersCount",
-  default: 0,
-});
-
 const isResetModal: RecoilState<boolean> = atom({
   key: "isResetModal",
   default: false,
@@ -269,11 +264,6 @@ const EditCourseOfferInput = atom({
   default: 0,
 });
 
-const coursesCount = atom({
-  key: "coursesCount",
-  default: 0,
-});
-
 const courseSearchInput = atom({
   key: "courseSearchInput",
   default: "",
@@ -304,11 +294,6 @@ const MainEditModalCourse = atom({
   },
 });
 
-const bannedUsersCount = atom({
-  key: "bannedUsersCount",
-  default: 0,
-});
-
 const bannedUsersSearchInput = atom({
   key: "bannedUsersSearchInput",
   default: "",
@@ -317,11 +302,6 @@ const bannedUsersSearchInput = atom({
 const bannedUsersSortFilter = atom({
   key: "bannedUsersSortFilter",
   default: false,
-});
-
-const ticketsCount: RecoilState<number> = atom({
-  key: "ticketsCount",
-  default: 0,
 });
 
 const AddTicketCodeInput: RecoilState<string> = atom({
@@ -354,6 +334,45 @@ const AddTicketCourseIDInputValidator: RecoilState<boolean> = atom({
   default: false,
 });
 
+const isRemoveModalForm = atom({
+  key: "isRemoveModalForm",
+  default: false,
+});
+
+const mainUserIDToRemove = atom({
+  key: "mainUserIDToRemove",
+  default: 0,
+});
+
+const mainUserInfoToBan = atom({
+  key: "mainUserInfoToBan",
+  default: {
+    user_id: 0,
+    user_name: "",
+    user_email: "",
+  },
+});
+
+const mainCourseIDToRemove = atom({
+  key: "mainCourseIDToRemove",
+  default: 0,
+});
+
+const mainCommentIDToRemove = atom({
+  key: "mainCommentIDToRemove",
+  default: 0,
+});
+
+const mainTicketIDToRemove = atom({
+  key: "mainTicketIDToRemove",
+  default: 0,
+});
+
+const mainUserBannedIDToRemove = atom({
+  key: "mainUserBannedIDToRemove",
+  default: 0,
+});
+
 export {
   DarkMode,
   globalSearchInput,
@@ -364,7 +383,6 @@ export {
   AllTickets,
   AllBannedUsers,
   AllCourses,
-  usersCount,
   isResetModal,
   isSuccessModal,
   isErrorModal,
@@ -392,20 +410,24 @@ export {
   EditCoursePriceInput,
   EditCourseDurationInput,
   EditCourseOfferInput,
-  coursesCount,
   courseSearchInput,
   courseSortFilter,
   isCourseEditModal,
   MainEditModalCourse,
   progressPersent,
-  bannedUsersCount,
   bannedUsersSearchInput,
   bannedUsersSortFilter,
-  ticketsCount,
   AddTicketCodeInput,
   AddTicketCodeInputValidator,
   AddTicketQuantityInput,
   AddTicketQuantityInputValidator,
   AddTicketCourseIDInput,
   AddTicketCourseIDInputValidator,
+  isRemoveModalForm,
+  mainUserIDToRemove,
+  mainCourseIDToRemove,
+  mainCommentIDToRemove,
+  mainTicketIDToRemove,
+  mainUserInfoToBan,
+  mainUserBannedIDToRemove,
 };

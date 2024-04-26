@@ -2,33 +2,16 @@ import AddCourseSection from "../Organisms/CoursesPageComponents/AddCourseSectio
 import CoursesTable from "../Organisms/CoursesPageComponents/CoursesTable";
 import Alert from "../Atoms/Alert";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  AllCourses,
-  courseSearchInput,
-  courseSortFilter,
-  coursesCount,
-} from "../../Contexts/RecoilAtoms";
-import { memo, useEffect } from "react";
+import { AllCourses, courseSearchInput, courseSortFilter } from "../../Contexts/RecoilAtoms";
+import { memo } from "react";
 import { FaBook } from "react-icons/fa";
 import { FaSortAmountDown, FaSortAmountUpAlt } from "react-icons/fa";
 import { FcSearch } from "react-icons/fc";
 
 const Courses = memo(() => {
   const allCourses = useRecoilValue(AllCourses);
-  const [allCorsesCount, setAllCoursesCount] = useRecoilState(coursesCount);
   const [searchInput, setSearchInput] = useRecoilState(courseSearchInput);
   const [CourseSortFilter, setCourseSortFilter] = useRecoilState(courseSortFilter);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAllCoursesCount((prevCount) => prevCount + 1);
-    }, 60);
-
-    if (allCorsesCount === allCourses.length) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [allCorsesCount, allCourses]);
 
   return (
     <main className="flex flex-col m-auto gap-4 p-4 lg:w-full md:w-[34rem] sm:w-80 w-72">
@@ -39,7 +22,7 @@ const Courses = memo(() => {
         <section className="flex flex-col">
           <div className="flex gap-4 items-center justify-between rounded-tl-lg rounded-tr-lg bg-zinc-400 dark:bg-secondaryColor px-8 p-2 border-b border-white dark:border-black">
             <h2 className="hidden md:flex justify-center items-center basis-3/5 gap-2 text-xl font-bold p-2 rounded-lg text-secondaryColor dark:text-black bg-primaryColor bg-opacity-60 dark:bg-opacity-100">
-              {`All Courses (${allCorsesCount})`}
+              {`All Courses (${allCourses.length})`}
               <FaBook className="w-6 h-6" />
             </h2>
             <div className="flex justify-end items-center gap-6 basis-2/5">

@@ -1,12 +1,15 @@
+import BanModal from "../Organisms/BanModal";
 import { memo } from "react";
 import { PiUserFill } from "react-icons/pi";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import { MdEmail } from "react-icons/md";
-import { OneUserInfo } from "../../Contexts/RecoilAtoms";
+import { OneUserInfo, isRemoveModalForm, mainUserInfoToBan } from "../../Contexts/RecoilAtoms";
 import { useRecoilState } from "recoil";
 
 const UserInfo = memo(() => {
   const [oneUserInfo] = useRecoilState(OneUserInfo);
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [, setMainUserRemove] = useRecoilState(mainUserInfoToBan);
 
   return (
     <main className="flex flex-col justify-center items-center gap-4 py-12 px-4 rounded-tl-lg rounded-bl-lg bg-zinc-400 dark:bg-secondaryColor drop-shadow-lg">
@@ -53,14 +56,18 @@ const UserInfo = memo(() => {
           )}
         </div>
         <div className="flex flex-wrap gap-4 items-center justify-center p-4 bg-white text-black dark:text-white dark:bg-secondaryColor sm:w-64 w-40 m-auto rounded-full">
-          <button className="text-base font-medium bg-red-500 p-2 rounded-lg hover:text-white dark:hover:text-red-500 dark:hover:bg-white hover:bg-secondaryColor">
+          <button
+            className="text-base font-medium bg-red-500 p-2 rounded-lg hover:text-white dark:hover:text-red-500 dark:hover:bg-white hover:bg-secondaryColor"
+            onClick={() => {
+              setIsRemoveModal(true);
+              setMainUserRemove(oneUserInfo[0]);
+            }}
+          >
             Ban User
-          </button>
-          <button className="text-base font-medium bg-primaryColor p-2 rounded-lg hover:text-white hover:bg-secondaryColor dark:hover:bg-white dark:hover:text-primaryColor">
-            Remove User
           </button>
         </div>
       </section>
+      {isRemoveModal && <BanModal bgOpacity="bg-opacity-30" />}
     </main>
   );
 });

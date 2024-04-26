@@ -1,10 +1,17 @@
 import Table from "../Tables/Table";
+import BannedUserRemoveModal from "../RemoveModals/BannedUserRemoveModal";
 import { useRecoilState } from "recoil";
 import { memo } from "react";
-import { AllBannedUsers } from "../../../Contexts/RecoilAtoms";
+import {
+  AllBannedUsers,
+  isRemoveModalForm,
+  mainUserBannedIDToRemove,
+} from "../../../Contexts/RecoilAtoms";
 
 const BannedUsersTable = memo(() => {
   const allBannedUsers = useRecoilState(AllBannedUsers);
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [, setMainBannedUserRemove] = useRecoilState(mainUserBannedIDToRemove);
 
   return (
     <>
@@ -35,13 +42,20 @@ const BannedUsersTable = memo(() => {
               <td className="px-6 py-4">{user.user_email}</td>
               <td className="px-6 py-4">{user.banned_At.toLocaleString().slice(0, 25)}</td>
               <td className="px-6 py-4">
-                <button className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white">
+                <button
+                  className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white"
+                  onClick={() => {
+                    setIsRemoveModal(true);
+                    setMainBannedUserRemove(user.banned_id);
+                  }}
+                >
                   Remove
                 </button>
               </td>
             </tr>
           ))}
       </Table>
+      {isRemoveModal && <BannedUserRemoveModal bgOpacity="bg-opacity-50" />}
     </>
   );
 });

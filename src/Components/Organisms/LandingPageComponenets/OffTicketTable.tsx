@@ -1,10 +1,13 @@
 import Table from "../Tables/Table";
+import TicketRemoveModal from "../RemoveModals/TicketRemoveModal";
 import { useRecoilState } from "recoil";
-import { AllTickets } from "../../../Contexts/RecoilAtoms";
+import { AllTickets, isRemoveModalForm, mainTicketIDToRemove } from "../../../Contexts/RecoilAtoms";
 import { memo } from "react";
 
 const OffTicketTable = memo(() => {
   const allTickets = useRecoilState(AllTickets);
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [, setMainTicketRemove] = useRecoilState(mainTicketIDToRemove);
 
   return (
     <>
@@ -36,13 +39,20 @@ const OffTicketTable = memo(() => {
               <td className="px-6 py-4">{ticket.off_quantity}</td>
               <td className="px-6 py-4">{ticket.created_At.toLocaleString().slice(0, 25)}</td>
               <td className="px-6 py-4">
-                <button className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white">
+                <button
+                  className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white"
+                  onClick={() => {
+                    setIsRemoveModal(true);
+                    setMainTicketRemove(ticket.off_id);
+                  }}
+                >
                   Remove
                 </button>
               </td>
             </tr>
           ))}
       </Table>
+      {isRemoveModal && <TicketRemoveModal bgOpacity="bg-opacity-50" />}
     </>
   );
 });
