@@ -2,12 +2,12 @@ import CommentRemoveModal from "../RemoveModals/CommentRemoveModal";
 import { memo, useEffect, useState } from "react";
 import { AxiosInstanceApp } from "../../../Services/AxiosInstanceApp";
 import { GetAllCoursesResponseType } from "../../../Types/AxiosResponsesType/AxiosResponsesType";
-import { isRemoveModalForm, mainCommentIDToRemove } from "../../../Contexts/RecoilAtoms";
+import { isRemoveModalComment, mainCommentIDToRemove } from "../../../Contexts/RecoilAtoms";
 import { useRecoilState } from "recoil";
 
 const CommentPageTableTRS = memo((comment: any) => {
   const [commentCourseImg, setCommentCourseImg] = useState("");
-  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalComment);
   const [, setMainCommentRemove] = useRecoilState(mainCommentIDToRemove);
 
   useEffect(() => {

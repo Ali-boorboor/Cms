@@ -334,8 +334,33 @@ const AddTicketCourseIDInputValidator: RecoilState<boolean> = atom({
   default: false,
 });
 
-const isRemoveModalForm = atom({
-  key: "isRemoveModalForm",
+const isRemoveModalCourse = atom({
+  key: "isRemoveModalCourse",
+  default: false,
+});
+
+const isRemoveModalUser = atom({
+  key: "isRemoveModalUser",
+  default: false,
+});
+
+const isRemoveModalComment = atom({
+  key: "isRemoveModalComment",
+  default: false,
+});
+
+const isRemoveModalTicket = atom({
+  key: "isRemoveModalTicket",
+  default: false,
+});
+
+const isRemoveModalBanUser = atom({
+  key: "isRemoveModalBanUser",
+  default: false,
+});
+
+const isBanModalUser = atom({
+  key: "isBanModalUser",
   default: false,
 });
 
@@ -423,7 +448,12 @@ export {
   AddTicketQuantityInputValidator,
   AddTicketCourseIDInput,
   AddTicketCourseIDInputValidator,
-  isRemoveModalForm,
+  isRemoveModalUser,
+  isRemoveModalBanUser,
+  isRemoveModalComment,
+  isRemoveModalCourse,
+  isRemoveModalTicket,
+  isBanModalUser,
   mainUserIDToRemove,
   mainCourseIDToRemove,
   mainCommentIDToRemove,

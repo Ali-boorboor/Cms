@@ -1,6 +1,6 @@
 import DeleteFormModal from "../../Molecules/DeleteFormModal";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { AllUsers, mainUserIDToRemove } from "../../../Contexts/RecoilAtoms";
+import { AllUsers, isRemoveModalUser, mainUserIDToRemove } from "../../../Contexts/RecoilAtoms";
 import { AxiosInstanceApp } from "../../../Services/AxiosInstanceApp";
 import { memo } from "react";
 import { GetAllUserResponsesType } from "../../../Types/AxiosResponsesType/AxiosResponsesType";
@@ -8,6 +8,7 @@ import { GetAllUserResponsesType } from "../../../Types/AxiosResponsesType/Axios
 const UserRemoveModal = memo(({ bgOpacity }: any) => {
   const mainUserRemove = useRecoilValue(mainUserIDToRemove);
   const [, setAllUsers] = useRecoilState(AllUsers);
+  const [, setIsRemoveModal] = useRecoilState(isRemoveModalUser);
 
   const onSubmitFunction = () => {
     AxiosInstanceApp.delete(`/user/${mainUserRemove}`).then(() => {
@@ -17,7 +18,16 @@ const UserRemoveModal = memo(({ bgOpacity }: any) => {
     });
   };
 
-  return <DeleteFormModal title="User" onSubmitFunction={onSubmitFunction} bgOpacity={bgOpacity} />;
+  const onCloseFunction = () => setIsRemoveModal(false);
+
+  return (
+    <DeleteFormModal
+      title="User"
+      onSubmitFunction={onSubmitFunction}
+      bgOpacity={bgOpacity}
+      onCloseFunction={onCloseFunction}
+    />
+  );
 });
 
 export default UserRemoveModal;

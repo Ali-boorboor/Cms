@@ -1,11 +1,7 @@
 import ReactDOM from "react-dom";
 import { memo } from "react";
-import { useRecoilState } from "recoil";
-import { isRemoveModalForm } from "../../Contexts/RecoilAtoms";
 
-const DeleteFormModal = memo(({ title, onSubmitFunction, bgOpacity }: any) => {
-  const [, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
-
+const DeleteFormModal = memo(({ title, onSubmitFunction, bgOpacity, onCloseFunction }: any) => {
   return ReactDOM.createPortal(
     <>
       <section
@@ -16,7 +12,7 @@ const DeleteFormModal = memo(({ title, onSubmitFunction, bgOpacity }: any) => {
           onSubmit={(e) => {
             e.preventDefault();
             onSubmitFunction();
-            setIsRemoveModal(false);
+            onCloseFunction();
           }}
         >
           <p className="text-xl font-bold dark:bg-zinc-400 bg-secondaryColor p-2 rounded-lg text-white ring ring-secondaryColor dark:ring-white">{`Are You Sure About Removing This ${title} ?`}</p>
@@ -30,7 +26,7 @@ const DeleteFormModal = memo(({ title, onSubmitFunction, bgOpacity }: any) => {
             <button
               type="button"
               className="bg-red-600 text-white rounded-lg p-2 text-center basis-1/2 ring dark:ring-white ring-secondaryColor hover:scale-95"
-              onClick={() => setIsRemoveModal(false)}
+              onClick={() => onCloseFunction()}
             >
               NO
             </button>

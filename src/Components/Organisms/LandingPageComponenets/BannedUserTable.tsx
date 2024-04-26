@@ -4,13 +4,13 @@ import { useRecoilState } from "recoil";
 import { memo } from "react";
 import {
   AllBannedUsers,
-  isRemoveModalForm,
+  isRemoveModalBanUser,
   mainUserBannedIDToRemove,
 } from "../../../Contexts/RecoilAtoms";
 
 const BannedUsersTable = memo(() => {
   const allBannedUsers = useRecoilState(AllBannedUsers);
-  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalBanUser);
   const [, setMainBannedUserRemove] = useRecoilState(mainUserBannedIDToRemove);
 
   return (

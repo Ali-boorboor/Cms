@@ -2,10 +2,15 @@ import DeleteFormModal from "../../Molecules/DeleteFormModal";
 import { memo } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { AxiosInstanceApp } from "../../../Services/AxiosInstanceApp";
-import { AllBannedUsers, mainUserBannedIDToRemove } from "../../../Contexts/RecoilAtoms";
+import {
+  AllBannedUsers,
+  isRemoveModalBanUser,
+  mainUserBannedIDToRemove,
+} from "../../../Contexts/RecoilAtoms";
 import { GetAllBannedUsersResponseType } from "../../../Types/AxiosResponsesType/AxiosResponsesType";
 
 const BannedUserRemoveModal = memo(({ bgOpacity }: any) => {
+  const [, setIsRemoveModal] = useRecoilState(isRemoveModalBanUser);
   const mainUserBannedRemove = useRecoilValue(mainUserBannedIDToRemove);
   const [, setAllBannedUsers] = useRecoilState(AllBannedUsers);
 
@@ -17,10 +22,13 @@ const BannedUserRemoveModal = memo(({ bgOpacity }: any) => {
     });
   };
 
+  const onCloseFunction = () => setIsRemoveModal(false);
+
   return (
     <DeleteFormModal
       title="Banned User"
       onSubmitFunction={onSubmitFunction}
+      onCloseFunction={onCloseFunction}
       bgOpacity={bgOpacity}
     />
   );

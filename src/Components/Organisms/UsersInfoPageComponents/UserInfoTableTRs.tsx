@@ -3,10 +3,10 @@ import UserRemoveModal from "../RemoveModals/UserRemoveModal";
 import { useNavigate } from "react-router";
 import { memo } from "react";
 import { useRecoilState } from "recoil";
-import { isRemoveModalForm, mainUserIDToRemove } from "../../../Contexts/RecoilAtoms";
+import { isRemoveModalUser, mainUserIDToRemove } from "../../../Contexts/RecoilAtoms";
 
 const UserInfoTableTRs = memo((user: any) => {
-  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalUser);
   const [, setMainUserRemove] = useRecoilState(mainUserIDToRemove);
   const navigate = useNavigate();
 

@@ -43,7 +43,7 @@ const AddUserForm = memo(() => {
   const [, setAllUsers] = useRecoilState(AllUsers);
 
   useEffect(() => {
-    /\w+@gmail\.[a-zA-Z]\.com/.test(addUserEmailInput)
+    /\w+@gmail\.com/.test(addUserEmailInput)
       ? setAddUserEmailInputValidator(true)
       : setAddUserEmailInputValidator(false);
     addUserNameInput.trim().length >= 3

@@ -5,12 +5,12 @@ import { memo } from "react";
 import { useRecoilState } from "recoil";
 import {
   AllComments,
-  isRemoveModalForm,
+  isRemoveModalComment,
   mainCommentIDToRemove,
 } from "../../../Contexts/RecoilAtoms";
 
 const CommentTable: CommentTableType = memo(() => {
-  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalComment);
   const [, setMainCommentRemove] = useRecoilState(mainCommentIDToRemove);
   const allComments = useRecoilState(AllComments);
 

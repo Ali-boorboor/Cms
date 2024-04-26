@@ -3,12 +3,12 @@ import { memo } from "react";
 import { PiUserFill } from "react-icons/pi";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import { MdEmail } from "react-icons/md";
-import { OneUserInfo, isRemoveModalForm, mainUserInfoToBan } from "../../Contexts/RecoilAtoms";
+import { OneUserInfo, isBanModalUser, mainUserInfoToBan } from "../../Contexts/RecoilAtoms";
 import { useRecoilState } from "recoil";
 
 const UserInfo = memo(() => {
   const [oneUserInfo] = useRecoilState(OneUserInfo);
-  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [isBanModal, setIsBanModal] = useRecoilState(isBanModalUser);
   const [, setMainUserRemove] = useRecoilState(mainUserInfoToBan);
 
   return (
@@ -59,7 +59,7 @@ const UserInfo = memo(() => {
           <button
             className="text-base font-medium bg-red-500 p-2 rounded-lg hover:text-white dark:hover:text-red-500 dark:hover:bg-white hover:bg-secondaryColor"
             onClick={() => {
-              setIsRemoveModal(true);
+              setIsBanModal(true);
               setMainUserRemove(oneUserInfo[0]);
             }}
           >
@@ -67,7 +67,7 @@ const UserInfo = memo(() => {
           </button>
         </div>
       </section>
-      {isRemoveModal && <BanModal bgOpacity="bg-opacity-30" />}
+      {isBanModal && <BanModal bgOpacity="bg-opacity-30" />}
     </main>
   );
 });

@@ -3,12 +3,12 @@ import UserRemoveModal from "../RemoveModals/UserRemoveModal";
 import { UserTableType } from "../../../Types/OrganismsType/OrganismsType";
 import { memo } from "react";
 import { useRecoilState } from "recoil";
-import { AllUsers, isRemoveModalForm, mainUserIDToRemove } from "../../../Contexts/RecoilAtoms";
+import { AllUsers, isRemoveModalUser, mainUserIDToRemove } from "../../../Contexts/RecoilAtoms";
 import { useNavigate } from "react-router";
 
 const UserTable: UserTableType = memo(() => {
   const allUsers = useRecoilState(AllUsers);
-  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalUser);
   const [, setMainUserRemove] = useRecoilState(mainUserIDToRemove);
   const navigate = useNavigate();
 

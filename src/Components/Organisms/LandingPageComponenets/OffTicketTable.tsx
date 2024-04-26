@@ -1,12 +1,16 @@
 import Table from "../Tables/Table";
 import TicketRemoveModal from "../RemoveModals/TicketRemoveModal";
 import { useRecoilState } from "recoil";
-import { AllTickets, isRemoveModalForm, mainTicketIDToRemove } from "../../../Contexts/RecoilAtoms";
+import {
+  AllTickets,
+  isRemoveModalTicket,
+  mainTicketIDToRemove,
+} from "../../../Contexts/RecoilAtoms";
 import { memo } from "react";
 
 const OffTicketTable = memo(() => {
   const allTickets = useRecoilState(AllTickets);
-  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalTicket);
   const [, setMainTicketRemove] = useRecoilState(mainTicketIDToRemove);
 
   return (

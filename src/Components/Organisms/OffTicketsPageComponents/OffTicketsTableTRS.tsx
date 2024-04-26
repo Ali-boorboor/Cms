@@ -2,12 +2,12 @@ import TicketRemoveModal from "../RemoveModals/TicketRemoveModal";
 import { memo, useEffect, useState } from "react";
 import { AxiosInstanceApp } from "../../../Services/AxiosInstanceApp";
 import { GetAllCoursesResponseType } from "../../../Types/AxiosResponsesType/AxiosResponsesType";
-import { isRemoveModalForm, mainTicketIDToRemove } from "../../../Contexts/RecoilAtoms";
+import { isRemoveModalTicket, mainTicketIDToRemove } from "../../../Contexts/RecoilAtoms";
 import { useRecoilState } from "recoil";
 
 const OffTicketsTableTRS = memo((ticket: any) => {
   const [ticketCourseImg, setTicketCourseImg] = useState("");
-  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalTicket);
   const [, setMainTicketRemove] = useRecoilState(mainTicketIDToRemove);
 
   useEffect(() => {

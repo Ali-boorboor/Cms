@@ -5,14 +5,14 @@ import { useRecoilState } from "recoil";
 import {
   MainEditModalCourse,
   isCourseEditModal,
-  isRemoveModalForm,
+  isRemoveModalCourse,
   mainCourseIDToRemove,
 } from "../../../Contexts/RecoilAtoms";
 
 const CoursesTableTRS = memo((course: any) => {
   const [courseEditModal, setCourseEditModal] = useRecoilState(isCourseEditModal);
   const [, setMainEditModalCourse] = useRecoilState(MainEditModalCourse);
-  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalForm);
+  const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalCourse);
   const [, setMainCourseRemove] = useRecoilState(mainCourseIDToRemove);
 
   return (
