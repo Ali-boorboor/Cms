@@ -2,7 +2,7 @@ import Table from "../Tables/Table";
 import CommentRemoveModal from "../RemoveModals/CommentRemoveModal";
 import { CommentTableType } from "../../../Types/OrganismsType/OrganismsType";
 import { memo } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   AllComments,
   isRemoveModalComment,
@@ -12,19 +12,19 @@ import {
 const CommentTable: CommentTableType = memo(() => {
   const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalComment);
   const [, setMainCommentRemove] = useRecoilState(mainCommentIDToRemove);
-  const allComments = useRecoilState(AllComments);
+  const allComments = useRecoilValue(AllComments);
 
   return (
     <>
       <Table th1="Commenter Name" th2="Comment Body" th3="Commented At" th4="Remove Comment">
-        {allComments[0]
+        {allComments
           .slice()
           .reverse()
           .slice(0, 3)
           .map((comment) => (
             <tr
               className="bg-primaryColor bg-opacity-60 border-b dark:bg-opacity-100 dark:border-zinc-700 hover:bg-opacity-70 dark:hover:bg-opacity-70"
-              key={comment.comment_id}
+              key={comment?._id}
             >
               <td className="w-4 p-4">
                 <div className="flex items-center">
@@ -39,16 +39,21 @@ const CommentTable: CommentTableType = memo(() => {
                 </div>
               </td>
               <th scope="row" className="px-6 py-4 text-black whitespace-nowrap dark:text-white">
-                <div className="text-base font-semibold">{comment.commenter_name}</div>
+                <div className="text-base font-semibold">{comment?.commenter?.username}</div>
               </th>
-              <td className="px-6 py-4">{comment.comment_body.slice(0, 40)}...</td>
-              <td className="px-6 py-4">{comment.commented_At.toLocaleString().slice(0, 25)}</td>
+              <td title={comment?.body} className="px-6 py-4">
+                {comment?.body.slice(0, 40)}...
+              </td>
+              <td className="px-6 py-4">
+                {new Date(comment?.created_At).toLocaleDateString("fa-IR-u-nu-latn")}
+              </td>
               <td className="px-6 py-4">
                 <button
+                  type="button"
                   className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white"
                   onClick={() => {
                     setIsRemoveModal(true);
-                    setMainCommentRemove(comment.comment_id);
+                    setMainCommentRemove(comment?._id);
                   }}
                 >
                   Remove

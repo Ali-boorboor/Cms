@@ -15,6 +15,7 @@ const ThemeSwitchBtn: ThemeSwithBtnType = memo(() => {
 
   return (
     <button
+      type="button"
       className="bg-secondaryColor text-white dark:bg-primaryColor rounded-full p-2 border-2 border-primaryColor dark:border-trinityColor"
       onClick={() => setDarkModeHandler()}
     >

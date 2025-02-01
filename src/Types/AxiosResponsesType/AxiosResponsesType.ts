@@ -1,82 +1,83 @@
 type UsersData = {
-  user_id: number;
-  user_name: string;
-  user_email: string;
-  user_password: string;
-  registered_At: Date;
+  _id: string;
+  username: string;
+  email: string;
+  created_At: Date;
   updated_At: Date;
-  user_courses: null;
+  courses: any;
 };
 
 type CommentsData = {
-  comment_id: number;
-  commenter_id: number;
-  commenter_name: string;
-  comment_body: string;
-  course_id: number;
-  commented_At: Date;
+  _id: string;
+  commenter: any;
+  body: string;
+  course: any;
+  created_At: Date;
+  updated_At: Date;
 };
 
 type TicketsData = {
   created_At: Date;
-  off_code: string;
-  off_id: number;
-  course_id: number;
-  off_quantity: number;
+  updated_At: Date;
+  code: string;
+  _id: string;
+  course: any;
+  quantity: number;
 };
 
 type BannedUsersData = {
-  banned_At: Date;
-  user_email: string;
-  user_name: string;
-  banned_id: number;
+  created_At: Date;
+  email: string;
+  user: any;
+  _id: string;
 };
 
 type CoursesData = {
-  course_id: number;
-  course_duration: number;
-  course_price: number;
-  course_offer: number;
-  course_name: string;
-  course_teacher: string;
-  course_img: string;
+  _id: string;
+  duration: string;
+  price: number;
+  offer: number;
+  name: string;
+  teacher: string;
+  cover: string;
+  comments: any;
   created_At: Date;
   updated_At: Date;
 };
 
 type GetAllUserResponsesType = {
   data: {
-    data: [UsersData];
+    result: [UsersData];
   };
 };
 
 type GetAllCommentResponseType = {
   data: {
-    data: [CommentsData];
+    result: [CommentsData];
   };
 };
 
 type GetAllTicketResponseType = {
   data: {
-    data: [TicketsData];
+    result: [TicketsData];
   };
 };
 
 type GetAllBannedUsersResponseType = {
   data: {
-    data: [BannedUsersData];
+    result: [BannedUsersData];
   };
 };
 
 type GetAllCoursesResponseType = {
   data: {
-    data: [CoursesData];
+    result: [CoursesData];
   };
 };
 
 type GetOneUserInfoResponseType = {
   data: {
-    data: [UsersData];
+    result: [UsersData];
   };
 };
 

@@ -2,7 +2,7 @@ import { memo } from "react";
 import { CoursesPageTableType } from "../../../Types/OrganismsType/OrganismsType";
 
 const CoursesPageTable: CoursesPageTableType = memo(
-  ({ children, th1, th2, th3, th4, th5, th6, th7, th8, th9, th10 }) => {
+  ({ children, th1, th2, th3, th4, th5, th6, th7, th8, th9 }) => {
     return (
       <div className="overflow-x-auto shadow-md rounded-bl-lg rounded-br-lg">
         <table className="w-full text-sm rtl:text-right text-zinc-700 dark:text-white text-center">
@@ -46,9 +46,6 @@ const CoursesPageTable: CoursesPageTableType = memo(
               </th>
               <th scope="col" className="px-6 py-3">
                 {th9}
-              </th>
-              <th scope="col" className="px-6 py-3">
-                {th10}
               </th>
             </tr>
           </thead>

@@ -1,4 +1,3 @@
-import Alert from "../../Atoms/Alert";
 import UserRemoveModal from "../RemoveModals/UserRemoveModal";
 import { useNavigate } from "react-router";
 import { memo } from "react";
@@ -26,26 +25,19 @@ const UserInfoTableTRs = memo((user: any) => {
           </div>
         </td>
         <th scope="row" className="px-6 py-4 text-black whitespace-nowrap dark:text-white">
-          <div className="text-base font-semibold">{user.user_name}</div>
+          <div className="text-base font-semibold">{user?.username}</div>
         </th>
-        <td className="px-6 py-4">{user.user_email}</td>
+        <td className="px-6 py-4">{user?.email}</td>
         <td className="px-6 py-4">
-          {user.user_courses ? user.user_courses : <Alert text="Found No Course" />}
+          {new Date(user?.created_At).toLocaleDateString("fa-IR-u-nu-latn")}
         </td>
-        <td className="px-6 py-4">
-          {user.updated_At ? (
-            user.updated_At.toLocaleString().slice(0, 25)
-          ) : (
-            <Alert text="Found No Update Record" />
-          )}
-        </td>
-        <td className="px-6 py-4">{user.registered_At.toLocaleString().slice(0, 25)}</td>
         <td className="px-6 py-4">
           <button
+            type="button"
             className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white"
             onClick={() => {
               setIsRemoveModal(true);
-              setMainUserRemove(user.user_id);
+              setMainUserRemove(user?._id);
             }}
           >
             Remove
@@ -53,8 +45,9 @@ const UserInfoTableTRs = memo((user: any) => {
         </td>
         <td className="px-6 py-4">
           <button
+            type="button"
             className="font-medium bg-blue-500 dark:bg-blue-600 text-white rounded-md p-1 hover:bg-white hover:text-blue-500"
-            onClick={() => navigate(`/user-info/${user.user_id}`)}
+            onClick={() => navigate(`/user-info/${user?._id}`)}
           >
             More Infos
           </button>

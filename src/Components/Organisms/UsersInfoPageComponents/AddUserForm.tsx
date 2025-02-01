@@ -49,7 +49,7 @@ const AddUserForm = memo(() => {
     addUserNameInput.trim().length >= 3
       ? setAddUserNameInputValidator(true)
       : setAddUserNameInputValidator(false);
-    addUserPasswordInput.trim().length >= 8
+    addUserPasswordInput.trim().length >= 6
       ? setAddUserPasswordInputValidator(true)
       : setAddUserPasswordInputValidator(false);
   }, [addUserNameInput, addUserEmailInput, addUserPasswordInput]);
@@ -59,18 +59,24 @@ const AddUserForm = memo(() => {
 
     if (addUserNameInputValidator && addUserEmailInputValidator && addUserPasswordInputValidator) {
       AxiosInstanceApp.post("/user", {
-        userName: addUserNameInput,
-        userPassword: addUserPasswordInput,
-        userEmail: addUserEmailInput,
-      }).then(() => {
-        setSubmitAddUserFormModal(true);
-        AxiosInstanceApp.get("/users").then((res: GetAllUserResponsesType) =>
-          setAllUsers(res.data.data)
-        );
-        setAddUserNameInput("");
-        setAddUserPasswordInput("");
-        setAddUserEmailInput("");
-      });
+        username: addUserNameInput,
+        password: addUserPasswordInput,
+        email: addUserEmailInput,
+      })
+        .then(() => {
+          setSubmitAddUserFormModal(true);
+          AxiosInstanceApp.get("/user/get-all", {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }).then((res: GetAllUserResponsesType) => setAllUsers(res.data?.result));
+          setAddUserNameInput("");
+          setAddUserPasswordInput("");
+          setAddUserEmailInput("");
+        })
+        .catch(() => {
+          setErrorAddUserFormModal(true);
+        });
     } else {
       setErrorAddUserFormModal(true);
     }
@@ -104,7 +110,7 @@ const AddUserForm = memo(() => {
                 onChange={(e) => setAddUserNameInput(e.target.value)}
                 className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
-              <button className="bg-white rounded-full p-1">
+              <button type="button" className="bg-white rounded-full p-1">
                 {addUserNameInputValidator ? (
                   <TiTick className="w-6 h-6 text-green-600" />
                 ) : (
@@ -121,7 +127,7 @@ const AddUserForm = memo(() => {
                 onChange={(e) => setAddUserPasswordInput(e.target.value)}
                 className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
-              <button className="bg-white rounded-full p-1">
+              <button type="button" className="bg-white rounded-full p-1">
                 {addUserPasswordInputValidator ? (
                   <TiTick className="w-6 h-6 text-green-600" />
                 ) : (
@@ -140,7 +146,7 @@ const AddUserForm = memo(() => {
                 onChange={(e) => setAddUserEmailInput(e.target.value)}
                 className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
-              <button className="bg-white rounded-full p-1">
+              <button type="button" className="bg-white rounded-full p-1">
                 {addUserEmailInputValidator ? (
                   <TiTick className="w-6 h-6 text-green-600" />
                 ) : (
@@ -187,10 +193,7 @@ const AddUserForm = memo(() => {
         />
       )}
       {errorAddUserFormModal && (
-        <Toast
-          icon={<MdError className="w-5 h-5 text-red-600" />}
-          title="Please Fill Out Fields Correctly"
-        />
+        <Toast icon={<MdError className="w-5 h-5 text-red-600" />} title="Failed To Create User" />
       )}
     </>
   );

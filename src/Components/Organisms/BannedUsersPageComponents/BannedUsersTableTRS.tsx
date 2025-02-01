@@ -22,22 +22,24 @@ const BannedUsersTableTRS = memo((users: any) => {
             </label>
           </div>
         </td>
-        <td className="px-6 py-4">{users.user_name}</td>
-        <td className="px-6 py-4">{users.user_email}</td>
-        <td className="px-6 py-4">{users.banned_At.toLocaleString().slice(0, 25)}</td>
+        <td className="px-6 py-4">{users?.email}</td>
+        <td className="px-6 py-4">
+          {new Date(users?.created_At).toLocaleDateString("fa-IR-u-nu-latn")}
+        </td>
         <td className="px-6 py-4">
           <button
+            type="button"
             className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white"
             onClick={() => {
               setIsRemoveModal(true);
-              setMainBannedUserRemove(users.user_id);
+              setMainBannedUserRemove(users?._id);
             }}
           >
             Remove
           </button>
         </td>
       </tr>
-      {isRemoveModal && <BannedUserRemoveModal bgOpacity="bg-opacity-50" />}
+      {isRemoveModal && <BannedUserRemoveModal bgOpacity="bg-opacity-10" />}
     </>
   );
 });

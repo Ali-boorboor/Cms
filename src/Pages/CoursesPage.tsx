@@ -11,10 +11,12 @@ const CoursesPage = memo(() => {
   useEffect(() => {
     document.title = "CMS - PANEL | COURSES";
 
-    if (allCourses[0].course_id === 0) {
-      AxiosInstanceApp.get("/courses").then((res: GetAllCoursesResponseType) =>
-        setAllCourses(res.data.data)
-      );
+    if (allCourses.length === 0 || !allCourses[0]?._id) {
+      AxiosInstanceApp.get("/course/get-all", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res: GetAllCoursesResponseType) => setAllCourses(res.data?.result));
     }
   }, []);
 

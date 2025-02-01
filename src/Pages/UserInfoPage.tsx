@@ -13,9 +13,12 @@ const UserInfoPage = memo(() => {
   useEffect(() => {
     document.title = "CMS - PANEL | USER-INFOS";
 
-    AxiosInstanceApp.get(`/user/${params.userID}`).then((res: GetOneUserInfoResponseType) =>
-      setOneUserInfo(res.data.data)
-    );
+    AxiosInstanceApp.get("/user", {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+        userid: params.userID,
+      },
+    }).then((res: GetOneUserInfoResponseType) => setOneUserInfo(res.data?.result));
   }, []);
 
   return <UserInfo />;

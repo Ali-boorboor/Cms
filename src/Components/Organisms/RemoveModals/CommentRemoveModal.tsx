@@ -15,10 +15,17 @@ const CommentRemoveModal = memo(({ bgOpacity }: any) => {
   const [, setIsRemoveModal] = useRecoilState(isRemoveModalComment);
 
   const onSubmitFunction = () => {
-    AxiosInstanceApp.delete(`/comment/${mainCommentRemove}`).then(() => {
-      AxiosInstanceApp.get("/comments").then((res: GetAllCommentResponseType) =>
-        setAllComments(res.data.data)
-      );
+    AxiosInstanceApp.delete("/comment", {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+        commentid: mainCommentRemove,
+      },
+    }).then(() => {
+      AxiosInstanceApp.get("/comment/get-all", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res: GetAllCommentResponseType) => setAllComments(res.data?.result));
     });
   };
 

@@ -15,10 +15,17 @@ const TicketRemoveModal = memo(({ bgOpacity }: any) => {
   const [, setIsRemoveModal] = useRecoilState(isRemoveModalTicket);
 
   const onSubmitFunction = () => {
-    AxiosInstanceApp.delete(`/off-ticket/${mainTicketRemove}`).then(() => {
-      AxiosInstanceApp.get("/off-ticket").then((res: GetAllTicketResponseType) =>
-        setAllTickets(res.data.data)
-      );
+    AxiosInstanceApp.delete("/off-ticket", {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+        ticketid: mainTicketRemove,
+      },
+    }).then(() => {
+      AxiosInstanceApp.get("/off-ticket/get-all", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res: GetAllTicketResponseType) => setAllTickets(res.data?.result));
     });
   };
 

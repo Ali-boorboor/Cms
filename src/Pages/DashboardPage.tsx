@@ -27,33 +27,44 @@ const DashboardPage = memo(() => {
   useEffect(() => {
     document.title = "CMS - PANEL | DASHBOARD";
 
-    if (allUsers[0].user_id === 0) {
-      AxiosInstanceApp.get("/users").then((res: GetAllUserResponsesType) =>
-        setAllUsers(res.data.data)
-      );
+    if (allUsers.length === 0 || !allUsers[0]?._id) {
+      AxiosInstanceApp.get("/user/get-all", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res: GetAllUserResponsesType) => setAllUsers(res.data?.result));
     }
 
-    if (allComments[0].comment_id === 0) {
-      AxiosInstanceApp.get("/comments").then((res: GetAllCommentResponseType) =>
-        setAllComments(res.data.data)
-      );
+    if (allComments.length === 0 || !allComments[0]?._id) {
+      AxiosInstanceApp.get("/comment/get-all", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res: GetAllCommentResponseType) => setAllComments(res.data?.result));
     }
 
-    if (allTickets[0].off_id === 0) {
-      AxiosInstanceApp.get("off-ticket").then((res: GetAllTicketResponseType) =>
-        setAllTickets(res.data.data)
-      );
+    if (allTickets.length === 0 || !allTickets[0]?._id) {
+      AxiosInstanceApp.get("/off-ticket/get-all", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res: GetAllTicketResponseType) => setAllTickets(res.data?.result));
     }
 
-    if (allBannedUsers[0].banned_id === 0) {
-      AxiosInstanceApp.get("/ban").then((res: GetAllBannedUsersResponseType) =>
-        setAllBannedUsers(res.data.data)
-      );
+    if (allBannedUsers.length === 0 || !allBannedUsers[0]?._id) {
+      AxiosInstanceApp.get("/banned-user/get-all", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res: GetAllBannedUsersResponseType) => setAllBannedUsers(res.data?.result));
     }
-    if (allCourses[0].course_id === 0) {
-      AxiosInstanceApp.get("/courses").then((res: GetAllCoursesResponseType) =>
-        setAllCourses(res.data.data)
-      );
+
+    if (allCourses.length === 0 || !allCourses[0]?._id) {
+      AxiosInstanceApp.get("/course/get-all", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res: GetAllCoursesResponseType) => setAllCourses(res.data?.result));
     }
   }, []);
 

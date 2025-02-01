@@ -18,9 +18,12 @@ const MainSideBar: MainSideBarType = memo(() => {
   return (
     <nav className="flex flex-col justify-start gap-4 sticky basis-1/5 left-0 top-0 p-4 pl-5 h-screen bg-primaryColor bg-opacity-60 dark:bg-opacity-100 border-r border-white dark:border-black">
       <div className="hidden sm:flex justify-center items-center my-8">
-        <CmsLogo />
+        <CmsLogo link="/dashboard" />
       </div>
-      <NavLink to="/" className={(link) => (link.isActive ? ActiveLinksStyle : UnActiveLinksStyle)}>
+      <NavLink
+        to="/dashboard"
+        className={(link) => (link.isActive ? ActiveLinksStyle : UnActiveLinksStyle)}
+      >
         <MdSpaceDashboard className="w-5 h-5" />
         {window.innerWidth > 600 && "Dashboard"}
       </NavLink>

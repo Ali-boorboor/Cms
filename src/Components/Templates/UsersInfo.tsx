@@ -2,7 +2,7 @@ import UserInfoTable from "../../Components/Organisms/UsersInfoPageComponents/Us
 import AddUserForm from "../Organisms/UsersInfoPageComponents/AddUserForm";
 import Alert from "../../Components/Atoms/Alert";
 import { memo } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { AllUsers, UserInfoSearchInput, UserInfoSortFilter } from "../../Contexts/RecoilAtoms";
 import { useNavigate } from "react-router";
 import { PiUsersThreeFill } from "react-icons/pi";
@@ -13,22 +13,22 @@ import { FcSearch } from "react-icons/fc";
 const UsersInfo = memo(() => {
   const [searchInput, setSearchInput] = useRecoilState(UserInfoSearchInput);
   const [userInfoSortFilter, setUserInfoSortFilter] = useRecoilState(UserInfoSortFilter);
-  const [allUsers] = useRecoilState(AllUsers);
+  const allUsers = useRecoilValue(AllUsers);
   const navigate = useNavigate();
 
   const searchUserHandler = () => {
     if (searchInput.length) {
       const searchUserResult = allUsers.filter(
-        (user) => user.user_name.toLowerCase() === searchInput.toLowerCase()
+        (user) => user?.username.toLowerCase() === searchInput.toLowerCase()
       );
-      navigate(`/user-info/${searchUserResult[0].user_id}`);
+      navigate(`/user-info/${searchUserResult[0]?._id}`);
     }
   };
 
   return (
     <main className="flex flex-col m-auto gap-4 p-4 lg:w-full md:w-[34rem] sm:w-80 w-72">
       <AddUserForm />
-      {allUsers[0].user_id === 0 ? (
+      {allUsers.length === 0 || !allUsers[0]._id ? (
         <Alert text="Found No User" />
       ) : (
         <section className="flex flex-col">
@@ -39,6 +39,7 @@ const UsersInfo = memo(() => {
             </h2>
             <div className="flex justify-end items-center gap-6 basis-2/5">
               <button
+                type="button"
                 className="bg-secondaryColor text-white dark:bg-primaryColor rounded-full p-2 border-2 border-primaryColor dark:border-trinityColor"
                 onClick={() => setUserInfoSortFilter(!userInfoSortFilter)}
               >
@@ -62,18 +63,18 @@ const UsersInfo = memo(() => {
                   <ul className="flex flex-col gap-2 text-center p-4 drop-shadow-lg rounded-lg absolute top-8 right-0 left-0 dark:bg-secondaryColor bg-primaryColor">
                     {allUsers
                       .filter((record) =>
-                        record.user_name.toUpperCase().includes(searchInput.toUpperCase())
+                        record?.username.toUpperCase().includes(searchInput.toUpperCase())
                       )
                       .map((user) => (
                         <li
                           className="w-full p-2 rounded-lg cursor-pointer dark:text-white text-secondaryColor dark:hover:bg-white dark:hover:text-secondaryColor hover:bg-secondaryColor hover:text-white"
-                          key={user.user_id}
+                          key={user?._id}
                           onClick={() => {
-                            setSearchInput(user.user_name);
-                            navigate(`/user-info/${user.user_id}`);
+                            setSearchInput(user?.username);
+                            navigate(`/user-info/${user?._id}`);
                           }}
                         >
-                          {user.user_name}
+                          {user?.username}
                         </li>
                       ))}
                   </ul>

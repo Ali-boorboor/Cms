@@ -22,6 +22,16 @@ const DarkMode: DarkModeType = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+const isAuth: any = atom({
+  key: "isAuth",
+  default: false,
+});
+
+const isLoading: any = atom({
+  key: "isLoading",
+  default: true,
+});
+
 const globalSearchInput: globalSearchInputType = atom({
   key: "globalSearchInput",
   default: "",
@@ -41,13 +51,13 @@ const AllUsers: RecoilState<UsersData[]> = atom({
   key: "AllUsers",
   default: [
     {
-      user_id: 0,
-      user_name: "",
-      user_email: "",
-      user_password: "",
-      registered_At: "",
+      _id: "",
+      username: "",
+      email: "",
+      password: "",
+      created_At: "",
       updated_At: "",
-      user_courses: null,
+      courses: null,
     },
   ],
   effects_UNSTABLE: [persistAtom],
@@ -57,12 +67,12 @@ const AllComments: RecoilState<CommentsData[]> = atom({
   key: "AllComments",
   default: [
     {
-      comment_id: 0,
-      commenter_id: 0,
-      commenter_name: "",
-      comment_body: "",
-      commented_At: "",
-      course_id: 0,
+      _id: "",
+      commenter: null,
+      body: "",
+      created_At: "",
+      updated_At: "",
+      course: null,
     },
   ],
   effects_UNSTABLE: [persistAtom],
@@ -73,10 +83,11 @@ const AllTickets: RecoilState<TicketsData[]> = atom({
   default: [
     {
       created_At: "",
-      off_code: "",
-      off_id: 0,
-      course_id: 0,
-      off_quantity: 0,
+      updated_At: "",
+      code: "",
+      _id: "",
+      course: null,
+      quantity: 0,
     },
   ],
   effects_UNSTABLE: [persistAtom],
@@ -86,10 +97,10 @@ const AllBannedUsers: RecoilState<BannedUsersData[]> = atom({
   key: "AllBannedUsers",
   default: [
     {
-      banned_At: "",
-      user_email: "",
-      user_name: "",
-      banned_id: 0,
+      created_At: "",
+      email: "",
+      user: null,
+      _id: "",
     },
   ],
   effects_UNSTABLE: [persistAtom],
@@ -99,13 +110,14 @@ const AllCourses: RecoilState<CoursesData[]> = atom({
   key: "AllCourses",
   default: [
     {
-      course_id: 0,
-      course_duration: 0,
-      course_price: 0,
-      course_offer: 0,
-      course_name: "",
-      course_teacher: "",
-      course_img: "",
+      _id: "",
+      name: "",
+      duration: "",
+      price: 0,
+      offer: 0,
+      cover: "",
+      teacher: "",
+      comments: null,
       created_At: "",
       updated_At: "",
     },
@@ -143,19 +155,18 @@ const UserInfoSearchInput: RecoilState<string> = atom({
   default: "",
 });
 
-const OneUserInfo: RecoilState<UsersData[]> = atom({
+const OneUserInfo: RecoilState<any> = atom({
   key: "OneUserInfo",
-  default: [
-    {
-      user_id: 0,
-      user_name: "",
-      user_email: "",
-      user_password: "",
-      registered_At: "",
-      updated_At: "",
-      user_courses: null,
-    },
-  ],
+  default: {
+    user_id: 0,
+    user_name: "",
+    user_email: "",
+    user_password: "",
+    registered_At: "",
+    updated_At: "",
+    user_courses: null,
+  },
+
   effects_UNSTABLE: [persistAtom],
 });
 
@@ -199,9 +210,9 @@ const AddCourseNameInputValidator: RecoilState<boolean> = atom({
   default: false,
 });
 
-const AddCourseCoverUploader: RecoilState<string> = atom({
+const AddCourseCoverUploader: RecoilState<any> = atom({
   key: "AddCourseCoverUploader",
-  default: "",
+  default: null,
 });
 
 const AddCourseCoverUploaderValidator: RecoilState<boolean> = atom({
@@ -229,9 +240,9 @@ const AddCoursePriceInputValidator: RecoilState<boolean> = atom({
   default: false,
 });
 
-const AddCourseDurationInput: RecoilState<number> = atom({
+const AddCourseDurationInput: RecoilState<string> = atom({
   key: "AddCourseDurationInput",
-  default: 0,
+  default: "",
 });
 
 const AddCourseDurationInputValidator: RecoilState<boolean> = atom({
@@ -256,7 +267,7 @@ const EditCoursePriceInput = atom({
 
 const EditCourseDurationInput = atom({
   key: "EditCourseDurationInput",
-  default: 0,
+  default: "",
 });
 
 const EditCourseOfferInput = atom({
@@ -282,13 +293,13 @@ const isCourseEditModal = atom({
 const MainEditModalCourse = atom({
   key: "MainEditModalCourse",
   default: {
-    course_id: 0,
-    course_duration: 0,
-    course_price: 0,
-    course_offer: 0,
-    course_name: "",
-    course_teacher: "",
-    course_img: "",
+    _id: 0,
+    duration: "",
+    price: 0,
+    offer: 0,
+    name: "",
+    teacher: "",
+    cover: "",
     created_At: "",
     updated_At: "",
   },
@@ -324,9 +335,9 @@ const AddTicketQuantityInputValidator: RecoilState<boolean> = atom({
   default: false,
 });
 
-const AddTicketCourseIDInput: RecoilState<number> = atom({
+const AddTicketCourseIDInput: RecoilState<string> = atom({
   key: "AddTicketCourseIDInput",
-  default: 0,
+  default: "",
 });
 
 const AddTicketCourseIDInputValidator: RecoilState<boolean> = atom({
@@ -366,15 +377,15 @@ const isBanModalUser = atom({
 
 const mainUserIDToRemove = atom({
   key: "mainUserIDToRemove",
-  default: 0,
+  default: "",
 });
 
 const mainUserInfoToBan = atom({
   key: "mainUserInfoToBan",
   default: {
-    user_id: 0,
-    user_name: "",
-    user_email: "",
+    _id: 0,
+    username: "",
+    email: "",
   },
 });
 
@@ -385,17 +396,17 @@ const mainCourseIDToRemove = atom({
 
 const mainCommentIDToRemove = atom({
   key: "mainCommentIDToRemove",
-  default: 0,
+  default: "",
 });
 
 const mainTicketIDToRemove = atom({
   key: "mainTicketIDToRemove",
-  default: 0,
+  default: "",
 });
 
 const mainUserBannedIDToRemove = atom({
   key: "mainUserBannedIDToRemove",
-  default: 0,
+  default: "",
 });
 
 export {
@@ -460,4 +471,6 @@ export {
   mainTicketIDToRemove,
   mainUserInfoToBan,
   mainUserBannedIDToRemove,
+  isAuth,
+  isLoading,
 };

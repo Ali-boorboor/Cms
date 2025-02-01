@@ -1,52 +1,77 @@
 import DeleteFormModal from "../Molecules/DeleteFormModal";
 import { memo } from "react";
 import { AxiosInstanceApp } from "../../Services/AxiosInstanceApp";
-import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  AllBannedUsers,
-  AllUsers,
-  isBanModalUser,
-  mainUserInfoToBan,
-} from "../../Contexts/RecoilAtoms";
+import { useRecoilState } from "recoil";
+import { AllBannedUsers, AllComments, AllUsers, isBanModalUser } from "../../Contexts/RecoilAtoms";
 import {
   GetAllBannedUsersResponseType,
-  GetAllUserResponsesType,
+  GetAllCommentResponseType,
 } from "../../Types/AxiosResponsesType/AxiosResponsesType";
+import { useNavigate, useParams } from "react-router";
 
 const BanModal = memo(({ bgOpacity }: any) => {
-  const mainUserRemove = useRecoilValue(mainUserInfoToBan);
   const [, setAllUsers] = useRecoilState(AllUsers);
   const [, setAllBannedUsers] = useRecoilState(AllBannedUsers);
   const [, setIsBanModal] = useRecoilState(isBanModalUser);
+  const [, setAllComments] = useRecoilState(AllComments);
+  const navigate = useNavigate();
+  const { userID } = useParams();
 
   const onSubmitFunction = () => {
-    AxiosInstanceApp.post("/ban", {
-      userName: mainUserRemove.user_name,
-      userEmail: mainUserRemove.user_email,
-    })
+    AxiosInstanceApp.post(
+      "/banned-user",
+      {
+        user: userID,
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    )
       .then(() => {
-        AxiosInstanceApp.get("/ban").then((res: GetAllBannedUsersResponseType) =>
-          setAllBannedUsers(res.data.data)
-        );
+        navigate("/banned-users");
+        AxiosInstanceApp.get("/banned-user/get-all", {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }).then((res: GetAllBannedUsersResponseType) => setAllBannedUsers(res.data?.result));
       })
       .then(() => {
-        AxiosInstanceApp.delete(`/user/${mainUserRemove.user_id}`).then(() => {
-          AxiosInstanceApp.get("/users").then((res: GetAllUserResponsesType) =>
-            setAllUsers(res.data.data)
-          );
+        AxiosInstanceApp.delete("/user", {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+            userid: userID,
+          },
+        }).then(() => {
+          AxiosInstanceApp.get("/user/get-all", {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }).then((res: any) => setAllUsers(res.data?.result));
         });
-      });
+      })
+      .then(() => {
+        AxiosInstanceApp.get("/comment/get-all", {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }).then((res: GetAllCommentResponseType) => setAllComments(res.data?.result));
+      })
+      .catch(() => {});
   };
 
   const onCloseFunction = () => setIsBanModal(false);
 
   return (
-    <DeleteFormModal
-      title="User & Ban The User"
-      onSubmitFunction={onSubmitFunction}
-      bgOpacity={bgOpacity}
-      onCloseFunction={onCloseFunction}
-    />
+    <>
+      <DeleteFormModal
+        title="User & Ban The User"
+        onSubmitFunction={onSubmitFunction}
+        bgOpacity={bgOpacity}
+        onCloseFunction={onCloseFunction}
+      />
+    </>
   );
 });
 

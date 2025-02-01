@@ -32,19 +32,19 @@ const CoursesTableTRS = memo((course: any) => {
         </td>
         <th scope="row" className="px-6 py-4 text-black whitespace-nowrap dark:text-white">
           <img
-            src={`/images/${course.course_img}`}
+            src={course?.cover}
             className="rounded-md object-cover w-full h-full border border-white dark:border-black"
           />
         </th>
-        <td className="px-6 py-4">{course.course_name}</td>
-        <td className="px-6 py-4">{course.course_teacher}</td>
-        <td className="px-6 py-4">{course.course_duration}H</td>
+        <td className="px-6 py-4">{course?.name}</td>
+        <td className="px-6 py-4">{course?.teacher}</td>
+        <td className="px-6 py-4">{course?.duration}</td>
         <td className="px-6 py-4 text-nowrap">
-          {course.course_price === 0 ? "Free" : `${course.course_price.toLocaleString()} T`}
+          {course?.price === 0 ? "Free" : `${course?.price.toLocaleString()} T`}
         </td>
         <td className="px-6 py-4">
-          {course.course_offer ? (
-            course.course_offer
+          {course?.offer ? (
+            `${course?.offer} %`
           ) : (
             <p className="text-center text-red-600 bg-white text-lg font-bold p-1 rounded-md">
               No Data
@@ -52,17 +52,11 @@ const CoursesTableTRS = memo((course: any) => {
           )}
         </td>
         <td className="px-6 py-4">
-          {course.updated_At ? (
-            course.updated_At.toLocaleString().slice(0, 25)
-          ) : (
-            <p className="text-center text-red-600 bg-white text-lg font-bold p-1 rounded-md">
-              No Data
-            </p>
-          )}
+          {new Date(course.created_At).toLocaleDateString("fa-IR-u-nu-latn")}
         </td>
-        <td className="px-6 py-4">{course.created_At.toLocaleString().slice(0, 25)}</td>
         <td className="px-6 py-4">
           <button
+            type="button"
             className="font-medium bg-blue-500 dark:bg-blue-600 text-white rounded-md p-1 hover:bg-white hover:text-blue-500"
             onClick={() => {
               setCourseEditModal(true);
@@ -74,10 +68,11 @@ const CoursesTableTRS = memo((course: any) => {
         </td>
         <td className="px-6 py-4">
           <button
+            type="button"
             className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white"
             onClick={() => {
               setIsRemoveModal(true);
-              setMainCourseRemove(course.course_id);
+              setMainCourseRemove(course?._id);
             }}
           >
             Remove
@@ -85,7 +80,7 @@ const CoursesTableTRS = memo((course: any) => {
         </td>
       </tr>
       {courseEditModal && <EditCourseModal />}
-      {isRemoveModal && <CourseRemoveModal bgOpacity="bg-opacity-50" />}
+      {isRemoveModal && <CourseRemoveModal bgOpacity="bg-opacity-20" />}
     </>
   );
 });

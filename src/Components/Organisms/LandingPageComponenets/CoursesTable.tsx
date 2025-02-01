@@ -1,21 +1,21 @@
 import Table from "../Tables/Table";
 import { memo } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { AllCourses } from "../../../Contexts/RecoilAtoms";
 
 const CoursesTable = memo(() => {
-  const allCourses = useRecoilState(AllCourses);
+  const allCourses = useRecoilValue(AllCourses);
 
   return (
     <Table th1="Course Cover" th2="Course Name" th3="Course Teacher" th4="Course Price">
-      {allCourses[0]
+      {allCourses
         .slice()
         .reverse()
         .slice(0, 3)
-        .map((course) => (
+        .map((course: any) => (
           <tr
             className="bg-primaryColor bg-opacity-60 border-b dark:bg-opacity-100 dark:border-zinc-700 hover:bg-opacity-70 dark:hover:bg-opacity-70"
-            key={course.course_id}
+            key={course?._id}
           >
             <td className="w-4 p-4">
               <div className="flex items-center">
@@ -32,13 +32,13 @@ const CoursesTable = memo(() => {
             <th scope="row" className="px-6 py-4 text-black whitespace-nowrap dark:text-white">
               <img
                 className="rounded-tr-2xl rounded-bl-2xl w-32 h-20 border-2 border-white dark:border-black drop-shadow-lg object-cover"
-                src={`/images/${course.course_img}`}
+                src={course?.cover}
               />
             </th>
-            <td className="px-6 py-4">{course.course_name}</td>
-            <td className="px-6 py-4">{course.course_teacher}</td>
+            <td className="px-6 py-4">{course?.name}</td>
+            <td className="px-6 py-4">{course?.teacher}</td>
             <td className="px-6 py-4 text-nowrap">
-              {course.course_price === 0 ? "Free" : `${course.course_price.toLocaleString()} T`}
+              {course?.price === 0 ? "Free" : `${course?.price.toLocaleString()} T`}
             </td>
           </tr>
         ))}

@@ -11,10 +11,12 @@ const UsersInfoPage = memo(() => {
   useEffect(() => {
     document.title = "CMS - PANEL | USERS-INFOS";
 
-    if (allUsers[0].user_id === 0) {
-      AxiosInstanceApp.get("/users").then((res: GetAllUserResponsesType) =>
-        setAllUsers(res.data.data)
-      );
+    if (allUsers.length === 0 || !allUsers[0]?._id) {
+      AxiosInstanceApp.get("/user/get-all", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res: GetAllUserResponsesType) => setAllUsers(res.data?.result));
     }
   }, []);
 

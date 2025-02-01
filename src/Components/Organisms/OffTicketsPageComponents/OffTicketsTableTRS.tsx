@@ -1,20 +1,11 @@
 import TicketRemoveModal from "../RemoveModals/TicketRemoveModal";
-import { memo, useEffect, useState } from "react";
-import { AxiosInstanceApp } from "../../../Services/AxiosInstanceApp";
-import { GetAllCoursesResponseType } from "../../../Types/AxiosResponsesType/AxiosResponsesType";
 import { isRemoveModalTicket, mainTicketIDToRemove } from "../../../Contexts/RecoilAtoms";
 import { useRecoilState } from "recoil";
+import { memo } from "react";
 
 const OffTicketsTableTRS = memo((ticket: any) => {
-  const [ticketCourseImg, setTicketCourseImg] = useState("");
   const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalTicket);
   const [, setMainTicketRemove] = useRecoilState(mainTicketIDToRemove);
-
-  useEffect(() => {
-    AxiosInstanceApp.get(`/course/${ticket.course_id}`).then((res: GetAllCoursesResponseType) =>
-      setTicketCourseImg(res.data.data[0].course_img)
-    );
-  }, []);
 
   return (
     <>
@@ -38,27 +29,30 @@ const OffTicketsTableTRS = memo((ticket: any) => {
           scope="row"
           className="px-6 py-4 text-black whitespace-nowrap dark:text-white font-bold"
         >
-          <div className="text-base font-semibold" title={ticket.off_code}>
-            {ticket.off_code.length > 20 ? `${ticket.off_code.slice(0, 20)}...` : ticket.off_code}
+          <div className="text-base font-semibold" title={ticket?.code}>
+            {ticket?.code.length > 20 ? `${ticket?.code.slice(0, 20)}...` : ticket?.code}
           </div>
         </td>
         <td scope="row" className="px-6 py-4 text-black whitespace-nowrap dark:text-white">
-          <div className="text-base font-semibold">{ticket.off_quantity}</div>
+          <div className="text-base font-semibold">{ticket?.quantity}</div>
         </td>
         <td className="px-6 py-4">
           <img
-            src={`/images/${ticketCourseImg}`}
+            src={ticket?.course?.cover}
             alt="Course-Cover"
             className="w-40 h-20 object-cover rounded-full border-2 dark:border-white border-black"
           />
         </td>
-        <td className="px-6 py-4">{ticket.created_At.toLocaleString().slice(0, 25)}</td>
+        <td className="px-6 py-4">
+          {new Date(ticket?.created_At).toLocaleDateString("fa-IR-u-nu-latn")}
+        </td>
         <td className="px-6 py-4">
           <button
+            type="button"
             className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white"
             onClick={() => {
               setIsRemoveModal(true);
-              setMainTicketRemove(ticket.off_id);
+              setMainTicketRemove(ticket?._id);
             }}
           >
             Remove

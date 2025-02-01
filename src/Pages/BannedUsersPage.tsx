@@ -29,30 +29,36 @@ const BannedUsersPage = memo(() => {
   useEffect(() => {
     document.title = "CMS - PANEL | BANNED-USERS";
 
-    allBannedUsers[0].banned_id === 0 &&
-      AxiosInstanceApp.get("/ban").then((res: GetAllBannedUsersResponseType) =>
-        setAllBannedUsers(res.data.data)
-      );
+    if (allBannedUsers.length === 0 || !allBannedUsers[0]?._id) {
+      AxiosInstanceApp.get("/banned-user/get-all", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res: GetAllBannedUsersResponseType) => setAllBannedUsers(res.data?.result));
+    }
 
-    allUsers[0].user_id === 0 &&
-      AxiosInstanceApp.get("/users").then((res: GetAllUserResponsesType) =>
-        setAllUsers(res.data.data)
-      );
+    if (allUsers.length === 0 || !allUsers[0]?._id) {
+      AxiosInstanceApp.get("/user/get-all", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res: GetAllUserResponsesType) => setAllUsers(res.data?.result));
+    }
   }, []);
 
   const searchUserHandler = () => {
     if (searchInput.length) {
       const searchUserResult = allUsers.filter(
-        (user) => user.user_name.toLowerCase() === searchInput.toLowerCase()
+        (user) => user?.username.toLowerCase() === searchInput.toLowerCase()
       );
-      navigate(`/user-info/${searchUserResult[0].user_id}`);
+      navigate(`/user-info/${searchUserResult[0]?._id}`);
     }
   };
 
   return (
     <main className="flex flex-col m-auto gap-4 p-4 lg:w-full md:w-[34rem] w-[24rem]">
       <BannedUsers />
-      {allUsers[0].user_id === 0 ? (
+      {!allUsers[0]?._id ? (
         <Alert text="Found No User" />
       ) : (
         <section className="flex flex-col">
@@ -63,6 +69,7 @@ const BannedUsersPage = memo(() => {
             </h2>
             <div className="flex justify-end items-center gap-6 basis-2/5">
               <button
+                type="button"
                 className="bg-secondaryColor text-white dark:bg-primaryColor rounded-full p-2 border-2 border-primaryColor dark:border-trinityColor"
                 onClick={() => setUserInfoSortFilter(!userInfoSortFilter)}
               >
@@ -86,18 +93,18 @@ const BannedUsersPage = memo(() => {
                   <ul className="flex flex-col gap-2 text-center p-4 drop-shadow-lg rounded-lg absolute top-8 right-0 left-0 dark:bg-secondaryColor bg-primaryColor">
                     {allUsers
                       .filter((record) =>
-                        record.user_name.toUpperCase().includes(searchInput.toUpperCase())
+                        record?.username.toUpperCase().includes(searchInput.toUpperCase())
                       )
                       .map((user) => (
                         <li
                           className="w-full p-2 rounded-lg cursor-pointer dark:text-white text-secondaryColor dark:hover:bg-white dark:hover:text-secondaryColor hover:bg-secondaryColor hover:text-white"
-                          key={user.user_id}
+                          key={user?._id}
                           onClick={() => {
-                            setSearchInput(user.user_name);
-                            navigate(`/user-info/${user.user_id}`);
+                            setSearchInput(user?.username);
+                            navigate(`/user-info/${user?._id}`);
                           }}
                         >
-                          {user.user_name}
+                          {user?.username}
                         </li>
                       ))}
                   </ul>

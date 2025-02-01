@@ -1,25 +1,16 @@
 import CommentRemoveModal from "../RemoveModals/CommentRemoveModal";
-import { memo, useEffect, useState } from "react";
-import { AxiosInstanceApp } from "../../../Services/AxiosInstanceApp";
-import { GetAllCoursesResponseType } from "../../../Types/AxiosResponsesType/AxiosResponsesType";
 import { isRemoveModalComment, mainCommentIDToRemove } from "../../../Contexts/RecoilAtoms";
 import { useRecoilState } from "recoil";
+import { memo } from "react";
 
 const CommentPageTableTRS = memo((comment: any) => {
-  const [commentCourseImg, setCommentCourseImg] = useState("");
   const [isRemoveModal, setIsRemoveModal] = useRecoilState(isRemoveModalComment);
   const [, setMainCommentRemove] = useRecoilState(mainCommentIDToRemove);
-
-  useEffect(() => {
-    AxiosInstanceApp.get(`/course/${comment.course_id}`).then((res: GetAllCoursesResponseType) =>
-      setCommentCourseImg(res.data.data[0].course_img)
-    );
-  }, []);
 
   return (
     <>
       <tr
-        key={comment.comment_id}
+        key={comment._id}
         className="odd:bg-primaryColor odd:bg-opacity-60 odd:border-b odd:dark:bg-opacity-100 odd:dark:border-zinc-700 odd:hover:bg-opacity-70 odd:dark:hover:bg-opacity-70 even:bg-zinc-400 even:dark:bg-secondaryColor even:bg-opacity-100 even:border-b even:dark:bg-opacity-100 even:dark:border-zinc-700 even:hover:bg-opacity-70 even:dark:hover:bg-opacity-70"
       >
         <td className="w-4 p-4">
@@ -35,25 +26,28 @@ const CommentPageTableTRS = memo((comment: any) => {
           </div>
         </td>
         <th scope="row" className="px-6 py-4 text-black whitespace-nowrap dark:text-white">
-          <div className="text-base font-semibold">{comment.commenter_name}</div>
+          <div className="text-base font-semibold">{comment?.commenter?.username}</div>
         </th>
-        <td className="px-6 py-4" title={comment.comment_body}>
-          {comment.comment_body.slice(0, 40)}...
+        <td className="px-6 py-4" title={comment.body}>
+          {comment.body.slice(0, 40)}...
         </td>
         <td className="px-6 py-4">
           <img
-            src={`/images/${commentCourseImg}`}
+            src={comment?.course?.cover}
             alt="Course-Cover"
             className="w-40 h-20 object-cover rounded-full border-2 dark:border-white border-black"
           />
         </td>
-        <td className="px-6 py-4">{comment.commented_At.toLocaleString().slice(0, 25)}</td>
+        <td className="px-6 py-4">
+          {new Date(comment?.created_At).toLocaleDateString("fa-IR-u-nu-latn")}
+        </td>
         <td className="px-6 py-4">
           <button
+            type="button"
             className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white"
             onClick={() => {
               setIsRemoveModal(true);
-              setMainCommentRemove(comment.comment_id);
+              setMainCommentRemove(comment._id);
             }}
           >
             Remove

@@ -12,18 +12,16 @@ const UserInfoTable = memo(() => {
     <UsersPageTable
       th1="User Name"
       th2="User Email"
-      th3="User Courses"
-      th4="Updated At"
-      th5="Registered At"
-      th6="Remove User"
-      th7="User Infos"
+      th3="Registered At"
+      th4="Remove User"
+      th5="User Infos"
     >
       {userInfoSortFilter
         ? allUsers[0]
             .slice()
             .reverse()
-            .map((user) => <UserInfoTableTRs key={user.user_id} {...user} />)
-        : allUsers[0].map((user) => <UserInfoTableTRs key={user.user_id} {...user} />)}
+            .map((user) => <UserInfoTableTRs key={user?._id} {...user} />)
+        : allUsers[0].map((user) => <UserInfoTableTRs key={user?._id} {...user} />)}
     </UsersPageTable>
   );
 });

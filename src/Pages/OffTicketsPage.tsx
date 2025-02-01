@@ -11,10 +11,13 @@ const OffTicketsPage = memo(() => {
   useEffect(() => {
     document.title = "CMS - PANEL | OFF-TICKETS";
 
-    allTickets[0].off_id === 0 &&
-      AxiosInstanceApp.get("off-ticket").then((res: GetAllTicketResponseType) =>
-        setAllTickets(res.data.data)
-      );
+    if (allTickets.length === 0 || !allTickets[0]?._id) {
+      AxiosInstanceApp.get("/off-ticket/get-all", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res: GetAllTicketResponseType) => setAllTickets(res.data?.result));
+    }
   }, []);
 
   return <OffTickets />;

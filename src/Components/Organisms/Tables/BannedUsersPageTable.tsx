@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { TableType } from "../../../Types/OrganismsType/OrganismsType";
 
-const BannedUsersPageTable: TableType = memo(({ children, th1, th2, th3, th4 }) => {
+const BannedUsersPageTable: TableType = memo(({ children, th1, th2, th3 }) => {
   return (
     <div className="overflow-x-auto shadow-md rounded-br-lg rounded-bl-lg">
       <table className="w-full text-sm text-left rtl:text-right text-zinc-700 dark:text-white">
@@ -27,9 +27,6 @@ const BannedUsersPageTable: TableType = memo(({ children, th1, th2, th3, th4 }) 
             </th>
             <th scope="col" className="px-6 py-3">
               {th3}
-            </th>
-            <th scope="col" className="px-6 py-3">
-              {th4}
             </th>
           </tr>
         </thead>

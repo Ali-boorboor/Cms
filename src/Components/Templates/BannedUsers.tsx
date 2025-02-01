@@ -18,8 +18,8 @@ const BannedUsers = memo(() => {
 
   return (
     <main>
-      {allBannedUsers[0].banned_id === 0 ? (
-        <Alert text="Found No Course" />
+      {!allBannedUsers[0]?._id ? (
+        <Alert text="Found No Ban User" />
       ) : (
         <section className="flex flex-col">
           <div className="flex gap-4 items-center justify-between rounded-tl-lg rounded-tr-lg bg-zinc-400 dark:bg-secondaryColor px-8 p-2 border-b border-white dark:border-black">
@@ -29,6 +29,7 @@ const BannedUsers = memo(() => {
             </h2>
             <div className="flex justify-end items-center gap-6 basis-2/5">
               <button
+                type="button"
                 className="bg-secondaryColor text-white dark:bg-primaryColor rounded-full p-2 border-2 border-primaryColor dark:border-trinityColor"
                 onClick={() => setBannedUsersSortFilter(!BannedUsersSortFilter)}
               >
@@ -51,15 +52,15 @@ const BannedUsers = memo(() => {
                   <ul className="flex flex-col gap-2 text-center p-4 drop-shadow-lg rounded-lg absolute top-8 right-0 left-0 dark:bg-secondaryColor bg-primaryColor">
                     {allBannedUsers
                       .filter((record) =>
-                        record.user_email.toUpperCase().includes(searchInput.toUpperCase())
+                        record?.email.toUpperCase().includes(searchInput.toUpperCase())
                       )
                       .map((user) => (
                         <li
                           className="w-full p-2 rounded-lg cursor-pointer dark:text-white text-secondaryColor dark:hover:bg-white dark:hover:text-secondaryColor hover:bg-secondaryColor hover:text-white"
-                          key={user.banned_id}
-                          onClick={() => setSearchInput(user.user_email)}
+                          key={user?._id}
+                          onClick={() => setSearchInput(user?.email)}
                         >
-                          {user.user_email}
+                          {user?.email}
                         </li>
                       ))}
                   </ul>

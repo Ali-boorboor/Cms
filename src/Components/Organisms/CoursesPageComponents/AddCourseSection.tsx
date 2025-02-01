@@ -55,22 +55,22 @@ const AddCourseSection = memo(() => {
   const [courseCoverUploaderValidator, setCourseCoverUploaderValidator] = useRecoilState(
     AddCourseCoverUploaderValidator
   );
-  const [, setAllCources] = useRecoilState(AllCourses);
+  const [, setAllCourses] = useRecoilState(AllCourses);
 
   useEffect(() => {
-    addCourseNameInput.trim().length >= 2
+    addCourseNameInput.trim().length >= 3
       ? setCourseNameInputValidator(true)
       : setCourseNameInputValidator(false);
-    courseTeacherInput.trim().length >= 6
+    courseTeacherInput.trim().length >= 3
       ? setCourseTeacherInputValidator(true)
       : setCourseTeacherInputValidator(false);
     coursePriceInput >= 0
       ? setCoursePriceInputValidator(true)
       : setCoursePriceInputValidator(false);
-    courseDurationInput > 0
+    courseDurationInput.trim()
       ? setCourseDurationInputValidator(true)
       : setCourseDurationInputValidator(false);
-    courseCoverUploader.length
+    courseCoverUploader
       ? setCourseCoverUploaderValidator(true)
       : setCourseCoverUploaderValidator(false);
   }, [
@@ -91,23 +91,38 @@ const AddCourseSection = memo(() => {
       courseCoverUploaderValidator &&
       courseDurationInputValidator
     ) {
-      AxiosInstanceApp.post("/course", {
-        courseName: addCourseNameInput,
-        courseTeacher: courseTeacherInput,
-        coursePrice: coursePriceInput,
-        courseCover: courseCoverUploader.slice(12),
-        courseDuration: courseDurationInput,
-      }).then(() => {
-        setSubmitAddFormModal(true);
-        AxiosInstanceApp.get("/courses").then((res: GetAllCoursesResponseType) =>
-          setAllCources(res.data.data)
-        );
-        setAddCourseNameInput("");
-        setCourseTeacherInput("");
-        setCourseCoverUploader("");
-        setCourseDurationInput(0);
-        setCoursePriceInput(0);
-      });
+      const bodyFormData: any = new FormData();
+      bodyFormData.append("name", addCourseNameInput);
+      bodyFormData.append("teacher", courseTeacherInput);
+      bodyFormData.append("price", coursePriceInput);
+      bodyFormData.append("duration", courseDurationInput);
+      bodyFormData.append("cover", courseCoverUploader);
+
+      AxiosInstanceApp({
+        method: "post",
+        url: "/course",
+        data: bodyFormData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+        .then(() => {
+          setSubmitAddFormModal(true);
+          AxiosInstanceApp.get("/course/get-all", {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }).then((res: GetAllCoursesResponseType) => setAllCourses(res.data?.result));
+          setAddCourseNameInput("");
+          setCourseTeacherInput("");
+          setCourseCoverUploader(null);
+          setCourseDurationInput("");
+          setCoursePriceInput(0);
+        })
+        .catch(() => {
+          setErrorFormModal(true);
+        });
     } else {
       setErrorFormModal(true);
     }
@@ -116,8 +131,8 @@ const AddCourseSection = memo(() => {
     setResetFormModal(true);
     setAddCourseNameInput("");
     setCourseTeacherInput("");
-    setCourseCoverUploader("");
-    setCourseDurationInput(0);
+    setCourseCoverUploader(null);
+    setCourseDurationInput("");
     setCoursePriceInput(0);
   };
 
@@ -142,7 +157,8 @@ const AddCourseSection = memo(() => {
                 onChange={(e) => setAddCourseNameInput(e.target.value)}
                 className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
-              <button className="bg-white rounded-full p-1">
+
+              <button type="button" className="bg-white rounded-full p-1">
                 {courseNameInputValidator ? (
                   <TiTick className="w-6 h-6 text-green-600" />
                 ) : (
@@ -159,7 +175,7 @@ const AddCourseSection = memo(() => {
                 onChange={(e) => setCourseTeacherInput(e.target.value)}
                 className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
-              <button className="bg-white rounded-full p-1">
+              <button type="button" className="bg-white rounded-full p-1">
                 {courseTeacherInputValidator ? (
                   <TiTick className="w-6 h-6 text-green-600" />
                 ) : (
@@ -178,7 +194,7 @@ const AddCourseSection = memo(() => {
                 onChange={(e) => setCoursePriceInput(+e.target.value)}
                 className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
-              <button className="bg-white rounded-full p-1">
+              <button type="button" className="bg-white rounded-full p-1">
                 {coursePriceInputValidator ? (
                   <TiTick className="w-6 h-6 text-green-600" />
                 ) : (
@@ -189,13 +205,13 @@ const AddCourseSection = memo(() => {
             <label className="max-w-96 w-full min-w-40 flex gap-2 items-center justify-center bg-primaryColor bg-opacity-60 dark:bg-opacity-100 p-2 rounded-full border border-secondaryColor dark:border-white">
               <MdTimer className="w-5 h-5 dark:text-white text-secondaryColor" />
               <input
-                type="number"
+                type="text"
                 placeholder="Course Duration"
                 value={courseDurationInput}
-                onChange={(e) => setCourseDurationInput(+e.target.value)}
+                onChange={(e) => setCourseDurationInput(e.target.value)}
                 className="w-full outline-none bg-transparent font-bold text-secondaryColor dark:text-white text-base placeholder:text-gray-500 dark:placeholder:text-gray-300"
               />
-              <button className="bg-white rounded-full p-1">
+              <button type="button" className="bg-white rounded-full p-1">
                 {courseDurationInputValidator ? (
                   <TiTick className="w-6 h-6 text-green-600" />
                 ) : (
@@ -205,29 +221,40 @@ const AddCourseSection = memo(() => {
             </label>
           </div>
         </div>
-        <div className="p-2">
+        <div className="p-2 flex-wrap gap-4 flex justify-center items-center">
           <label
             htmlFor="Uploader"
-            className={`text-secondaryColor cursor-pointer p-6 rounded-lg border dark:border-white border-black m-auto min-w-40 w-full max-w-80 h-20 flex items-center justify-center gap-2 ${
+            className={`text-secondaryColor cursor-pointer p-6 rounded-lg border dark:border-white border-black min-w-40 w-full max-w-80 h-20 flex items-center justify-center gap-2 ${
               courseCoverUploaderValidator ? "bg-green-600" : "bg-primaryColor"
             }`}
           >
             <FaFileImage className="w-5 h-5" />
             {courseCoverUploaderValidator ? (
-              <button className="bg-white rounded-full p-1">
+              <button type="button" className="bg-white rounded-full p-1">
                 <TiTick className="w-6 h-6 text-green-600" />
               </button>
             ) : (
               "Choose Image File"
             )}
           </label>
+          {/* <button
+            className="flex h-20 items-center justify-center gap-2 rounded-lg bg-zinc-500 text-white p-2 w-40 hover:scale-105 border border-black dark:border-white"
+            type="button"
+            onClick={() => setCourseCoverUploader(null)}
+          >
+            Clear Uploader
+            <FaRegTrashAlt />
+          </button> */}
         </div>
         <input
           type="file"
           id="Uploader"
           hidden
-          value={courseCoverUploader}
-          onChange={(e) => setCourseCoverUploader(e.target.value)}
+          onChange={(e: any) => {
+            if (e.target.files && e.target.files.length > 0) {
+              setCourseCoverUploader(e.target.files[0]);
+            }
+          }}
         />
         <div className="flex flex-col justify-center items-center gap-4 mt-4">
           <button
@@ -270,7 +297,7 @@ const AddCourseSection = memo(() => {
       {errorFormModal && (
         <Toast
           icon={<MdError className="w-5 h-5 text-red-600" />}
-          title="Please Fill Out Fields Correctly"
+          title="Failed To Create Course"
         />
       )}
     </>

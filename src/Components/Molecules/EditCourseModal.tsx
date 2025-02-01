@@ -28,7 +28,7 @@ import { GrPowerReset } from "react-icons/gr";
 
 const EditCourseModal = memo(() => {
   const [, setCourseEditModal] = useRecoilState(isCourseEditModal);
-  const [, setAllCources] = useRecoilState(AllCourses);
+  const [, setAllCourses] = useRecoilState(AllCourses);
   const [courseName, setCourseName] = useRecoilState(EditCourseNameInput);
   const [courseTeacher, setCourseTeacher] = useRecoilState(EditCourseTeacherInput);
   const [coursePrice, setCoursePrice] = useRecoilState(EditCoursePriceInput);
@@ -40,30 +40,39 @@ const EditCourseModal = memo(() => {
   const mainEditModalCourse = useRecoilValue(MainEditModalCourse);
 
   useEffect(() => {
-    setCourseName(mainEditModalCourse.course_name);
-    setCourseTeacher(mainEditModalCourse.course_teacher);
-    setCoursePrice(mainEditModalCourse.course_price);
-    setCourseDuration(mainEditModalCourse.course_duration);
-    mainEditModalCourse.course_offer
-      ? setCourseOffer(mainEditModalCourse.course_offer)
-      : setCourseOffer(0);
+    setCourseName(mainEditModalCourse?.name);
+    setCourseTeacher(mainEditModalCourse?.teacher);
+    setCoursePrice(mainEditModalCourse?.price);
+    setCourseDuration(mainEditModalCourse?.duration);
+    mainEditModalCourse?.offer ? setCourseOffer(mainEditModalCourse?.offer) : setCourseOffer(0);
   }, []);
 
   const submitNewCourseDatasHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (courseName && courseTeacher && courseDuration) {
-      AxiosInstanceApp.put(`/course/${mainEditModalCourse.course_id}`, {
-        courseName,
-        courseTeacher,
-        coursePrice,
-        courseDuration,
-        courseOffer,
-      })
+      AxiosInstanceApp.put(
+        "/course",
+        {
+          name: courseName,
+          teacher: courseTeacher,
+          price: coursePrice,
+          duration: courseDuration,
+          offer: courseOffer,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+            courseid: mainEditModalCourse?._id,
+          },
+        }
+      )
         .then(() => {
-          AxiosInstanceApp.get("/courses").then((res: GetAllCoursesResponseType) =>
-            setAllCources(res.data.data)
-          );
+          AxiosInstanceApp.get("/course/get-all", {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }).then((res: GetAllCoursesResponseType) => setAllCourses(res.data?.result));
           setCourseEditModal(false);
           setSubmitAddFormModal(true);
         })
@@ -79,7 +88,7 @@ const EditCourseModal = memo(() => {
     setCourseName("");
     setCourseTeacher("");
     setCoursePrice(0);
-    setCourseDuration(0);
+    setCourseDuration("");
     setCourseOffer(0);
     setResetFormModal(true);
   };
@@ -140,9 +149,9 @@ const EditCourseModal = memo(() => {
               Duration:
             </p>
             <input
-              type="number"
+              type="text"
               value={courseDuration}
-              onChange={(e) => setCourseDuration(+e.target.value)}
+              onChange={(e) => setCourseDuration(e.target.value)}
               className="bg-zinc-400 dark:bg-secondaryColor dark:text-white text-black p-2 drop-shadow-lg rounded-lg basis-3/5 h-full outline-none border border-secondaryColor dark:border-white"
             />
           </label>

@@ -10,16 +10,25 @@ import {
 import { GetAllBannedUsersResponseType } from "../../../Types/AxiosResponsesType/AxiosResponsesType";
 
 const BannedUserRemoveModal = memo(({ bgOpacity }: any) => {
-  const [, setIsRemoveModal] = useRecoilState(isRemoveModalBanUser);
   const mainUserBannedRemove = useRecoilValue(mainUserBannedIDToRemove);
+  const [, setIsRemoveModal] = useRecoilState(isRemoveModalBanUser);
   const [, setAllBannedUsers] = useRecoilState(AllBannedUsers);
 
   const onSubmitFunction = () => {
-    AxiosInstanceApp.delete(`/ban/${mainUserBannedRemove}`).then(() => {
-      AxiosInstanceApp.get("/ban").then((res: GetAllBannedUsersResponseType) =>
-        setAllBannedUsers(res.data.data)
-      );
-    });
+    AxiosInstanceApp.delete("/banned-user", {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+        banid: mainUserBannedRemove,
+      },
+    })
+      .then(() => {
+        AxiosInstanceApp.get("/banned-user/get-all", {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }).then((res: GetAllBannedUsersResponseType) => setAllBannedUsers(res.data?.result));
+      })
+      .catch(() => {});
   };
 
   const onCloseFunction = () => setIsRemoveModal(false);

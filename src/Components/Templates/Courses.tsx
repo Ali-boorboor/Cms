@@ -16,17 +16,18 @@ const Courses = memo(() => {
   return (
     <main className="flex flex-col m-auto gap-4 p-4 lg:w-full md:w-[34rem] sm:w-80 w-72">
       <AddCourseSection />
-      {allCourses[0].course_id === 0 ? (
+      {!allCourses[0]?._id ? (
         <Alert text="Found No Course" />
       ) : (
         <section className="flex flex-col">
           <div className="flex gap-4 items-center justify-between rounded-tl-lg rounded-tr-lg bg-zinc-400 dark:bg-secondaryColor px-8 p-2 border-b border-white dark:border-black">
             <h2 className="hidden md:flex justify-center items-center basis-3/5 gap-2 text-xl font-bold p-2 rounded-lg text-secondaryColor dark:text-black bg-primaryColor bg-opacity-60 dark:bg-opacity-100">
-              {`All Courses (${allCourses.length})`}
+              {`All Courses (${allCourses?.length})`}
               <FaBook className="w-6 h-6" />
             </h2>
             <div className="flex justify-end items-center gap-6 basis-2/5">
               <button
+                type="button"
                 className="bg-secondaryColor text-white dark:bg-primaryColor rounded-full p-2 border-2 border-primaryColor dark:border-trinityColor"
                 onClick={() => setCourseSortFilter(!CourseSortFilter)}
               >
@@ -49,17 +50,17 @@ const Courses = memo(() => {
                   <ul className="flex flex-col gap-2 text-center p-4 drop-shadow-lg rounded-lg absolute top-8 right-0 left-0 dark:bg-secondaryColor bg-primaryColor">
                     {allCourses
                       .filter((record) =>
-                        record.course_name.toUpperCase().includes(searchInput.toUpperCase())
+                        record?.name.toUpperCase().includes(searchInput.toUpperCase())
                       )
                       .map((course) => (
                         <li
                           className="w-full p-2 rounded-lg cursor-pointer dark:text-white text-secondaryColor dark:hover:bg-white dark:hover:text-secondaryColor hover:bg-secondaryColor hover:text-white"
-                          key={course.course_id}
+                          key={course?._id}
                           onClick={() => {
-                            setSearchInput(course.course_name);
+                            setSearchInput(course?.name);
                           }}
                         >
-                          {course.course_name}
+                          {course?.name}
                         </li>
                       ))}
                   </ul>

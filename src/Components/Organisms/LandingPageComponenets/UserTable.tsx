@@ -22,7 +22,7 @@ const UserTable: UserTableType = memo(() => {
           .map((user) => (
             <tr
               className="bg-primaryColor bg-opacity-60 border-b dark:bg-opacity-100 dark:border-zinc-700 hover:bg-opacity-70 dark:hover:bg-opacity-70"
-              key={user.user_id}
+              key={user?._id}
             >
               <td className="w-4 p-4">
                 <div className="flex items-center">
@@ -37,15 +37,16 @@ const UserTable: UserTableType = memo(() => {
                 </div>
               </td>
               <th scope="row" className="px-6 py-4 text-black whitespace-nowrap dark:text-white">
-                <div className="text-base font-semibold">{user.user_name}</div>
+                <div className="text-base font-semibold">{user?.username}</div>
               </th>
-              <td className="px-6 py-4">{user.user_email}</td>
+              <td className="px-6 py-4">{user?.email}</td>
               <td className="px-6 py-4">
                 <button
+                  type="button"
                   className="bg-red-500 dark:bg-red-600 p-1 rounded-md text-white hover:text-red-500 hover:bg-white"
                   onClick={() => {
                     setIsRemoveModal(true);
-                    setMainUserRemove(user.user_id);
+                    setMainUserRemove(user?._id);
                   }}
                 >
                   Remove
@@ -53,8 +54,9 @@ const UserTable: UserTableType = memo(() => {
               </td>
               <td className="px-6 py-4">
                 <button
+                  type="button"
                   className="font-medium bg-blue-500 dark:bg-blue-600 text-white rounded-md p-1 hover:bg-white hover:text-blue-500"
-                  onClick={() => navigate(`/user-info/${user.user_id}`)}
+                  onClick={() => navigate(`/user-info/${user?._id}`)}
                 >
                   More Infos
                 </button>

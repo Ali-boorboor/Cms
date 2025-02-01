@@ -29,7 +29,7 @@ const Dashboard = memo(() => {
   return (
     <>
       <main className="flex flex-col m-auto gap-4 p-4 lg:w-full md:w-4/5 w-80">
-        {allUsers[0].user_id === 0 ? (
+        {!allUsers[0]?._id ? (
           <Alert text="Found No User" />
         ) : (
           <>
@@ -40,7 +40,7 @@ const Dashboard = memo(() => {
             <UserTable />
           </>
         )}
-        {allCourses[0].course_id === 0 ? (
+        {!allCourses[0]?._id ? (
           <Alert text="Found No Course" />
         ) : (
           <>
@@ -51,7 +51,7 @@ const Dashboard = memo(() => {
             <CoursesTable />
           </>
         )}
-        {allComments[0].comment_id === 0 ? (
+        {!allComments[0]?._id ? (
           <Alert text="Found No Comment" />
         ) : (
           <>
@@ -62,7 +62,7 @@ const Dashboard = memo(() => {
             <CommentTable />
           </>
         )}
-        {allTickets[0].off_id === 0 ? (
+        {!allTickets[0]?._id ? (
           <Alert text="Found No Ticket" />
         ) : (
           <>
@@ -73,7 +73,7 @@ const Dashboard = memo(() => {
             <OffTicketTable />
           </>
         )}
-        {allBannedUsers[0].banned_id === 0 ? (
+        {!allBannedUsers[0]?._id ? (
           <Alert text="Found No Banned User" />
         ) : (
           <>

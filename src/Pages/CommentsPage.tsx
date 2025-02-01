@@ -11,10 +11,12 @@ const commentsPage = memo(() => {
   useEffect(() => {
     document.title = "CMS - PANEL | COMMENTS";
 
-    if (allComments[0].comment_id === 0) {
-      AxiosInstanceApp.get("/comments").then((res: GetAllCommentResponseType) =>
-        setAllComments(res.data.data)
-      );
+    if (allComments.length === 0 || !allComments[0]?._id) {
+      AxiosInstanceApp.get("/comment/get-all", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res: GetAllCommentResponseType) => setAllComments(res.data?.result));
     }
   }, []);
 

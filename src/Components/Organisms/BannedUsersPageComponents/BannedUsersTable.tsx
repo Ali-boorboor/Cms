@@ -9,13 +9,13 @@ const BannedUsersTable = memo(() => {
   const [BannedUsersSortFilter] = useRecoilState(bannedUsersSortFilter);
 
   return (
-    <BannedUsersPageTable th1="User Name" th2="User Email" th3="Banned At" th4="Remove User">
+    <BannedUsersPageTable th1="User Email" th2="Banned At" th3="Remove User">
       {BannedUsersSortFilter
         ? allBannedUsers
             .slice()
             .reverse()
-            .map((user) => <BannedUsersTableTRS key={user.banned_id} {...user} />)
-        : allBannedUsers.map((user) => <BannedUsersTableTRS key={user.banned_At} {...user} />)}
+            .map((user) => <BannedUsersTableTRS key={user?._id} {...user} />)
+        : allBannedUsers.map((user) => <BannedUsersTableTRS key={user?._id} {...user} />)}
     </BannedUsersPageTable>
   );
 });

@@ -20,14 +20,14 @@ const Toast = memo(({ icon, title }: any) => {
       setSuccessModal(false);
       setErrorModal(false);
       setProgressBarPersent(100);
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(timeout);
   }, [resetModal, successModal, errorModal]);
 
   useEffect(() => {
     let startTime = Date.now();
-    const duration = 3000;
+    const duration = 1000;
 
     const interval = setInterval(() => {
       const elapsedTime = Date.now() - startTime;
